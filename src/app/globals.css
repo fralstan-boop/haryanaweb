@@ -1,26 +1,597 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ── Theme tokens ────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-saffron-50: #fff4e6;
+  --color-saffron-100: #ffe0b2;
+  --color-saffron-200: #ffcc80;
+  --color-saffron-300: #ffb347;
+  --color-saffron-400: #ff9e2c;
+  --color-saffron-500: #ff8c1a;
+  --color-saffron-600: #e67a17;
+
+  --color-navy-950: #040a17;
+  --color-navy-900: #050B18;
+  --color-navy-800: #07142A;
+  --color-navy-700: #0A1F3D;
+  --color-navy-600: #172648;
+
+  --color-charcoal-900: #02060F;
+  --color-charcoal-800: #0f172a;
+  --color-charcoal-700: #1a2236;
+  --color-charcoal-600: #242d42;
+
+  --color-gold-400: #f6b73c;
+  --color-gold-500: #e5a52e;
+
+  --color-text-primary: #e6e9f0;
+  --color-text-secondary: #8e9bb8;
+  --color-text-muted: #556380;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-cinzel: var(--font-cinzel), "Cinzel", Georgia, "Times New Roman", serif;
+  --font-orbitron: "Orbitron", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── CSS Custom Properties ────────────────────────── */
+:root {
+  --saffron-glow: rgba(255, 140, 26, 0.35);
+  --bg-primary: #050B18;
+  --bg-secondary: #07142A;
+}
+
+/* ── Base ──────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(246, 183, 60, 0.25);
+  color: #fff;
+}
+
+/* ── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #020408; }
+::-webkit-scrollbar-thumb { background: #1a2236; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a3550; }
+
+/* ── Focus States ──────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--color-saffron-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ═══════════════════════════════════════════════════
+   CINEMATIC SECTION GRADIENTS
+   Each section gets a unique gradient for visual depth
+   ═══════════════════════════════════════════════════ */
+
+/* Section 1 (about/creator): Deep navy → dark navy */
+section#about {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(10,31,61,0.4) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(5,11,24,0.9) 0%, rgba(7,20,42,0.7) 50%, rgba(5,11,24,0.9) 100%);
+}
+
+/* Section 2 (work): Navy with saffron glow - REPLACED BY ColorBendsDynamic WebGL */
+section#work {
+  /* background:
+    radial-gradient(circle at 50% 20%, rgba(255,130,40,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(10,31,61,0.3) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(2,6,15,0.8) 0%, rgba(7,20,42,0.5) 50%, rgba(5,11,24,0.9) 100%); */
+  background: transparent;
+}
+
+/* Section 3 (hayaosint): Dark navy → subtle blue */
+section#hayaosint {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(0,80,160,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 70%, rgba(255,130,40,0.04) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(5,11,24,0.9) 0%, rgba(10,20,38,0.6) 50%, rgba(2,6,15,0.9) 100%);
+}
+
+/* Section 4 (community): Deep with subtle saffron */
+section#community {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,130,40,0.04) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(5,11,24,0.8) 0%, rgba(7,20,42,0.4) 50%, rgba(5,11,24,0.9) 100%);
+}
+
+/* Section 5 (hayasmp): Cool blue tint */
+section#hayasmp {
+  background:
+    radial-gradient(circle at 40% 40%, rgba(0,100,180,0.05) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(2,6,15,0.9) 0%, rgba(7,20,42,0.5) 50%, rgba(5,11,24,0.8) 100%);
+}
+
+/* Section 6 (services): Background image */
+section#services {
+  position: relative;
+  overflow: hidden; /* Ensure parallax image doesn't bleed */
+}
+
+.services-parallax-bg {
+  position: absolute;
+  inset: -5%; /* Oversize to allow for movement without showing edges */
+  background-image: url("https://github.com/fralstan-boop/etwf/blob/main/servicebg.png?raw=true");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+section#services::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.55);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Section 7 (contact): Dark with subtle accent */
+section#contact {
+  background:
+    radial-gradient(circle at 50% 80%, rgba(255,130,40,0.05) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(5,11,24,0.8) 0%, rgba(7,20,42,0.4) 50%, rgba(2,6,15,1) 100%);
+  position: relative;
+  z-index: 1;
+}
+
+section#contact h2 {
+  background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 40%, #b0b0b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Contact Section - Liquid Glass + Skeuomorphic Panel ── */
+.contact-panel {
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 22px;
+  border: 1px solid rgba(200, 155, 60, 0.35); /* Golden edge glow integration */
+  padding: 40px;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.55),
+    0 0 25px rgba(200, 155, 60, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.contact-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.08) 20%,
+    transparent 40%
+  );
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0; /* Above background, below content */
+}
+
+.contact-panel > * {
+  position: relative;
+  z-index: 1; /* Ensure content is above sheen */
+}
+
+.contact-panel:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 155, 60, 0.6);
+  box-shadow: 
+    0 35px 80px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(200, 155, 60, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.contact-panel-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  padding: 12px 14px !important;
+  min-height: 48px;
+  transition: all 0.3s ease;
+}
+
+.contact-panel-input:focus {
+  outline: none;
+  border: 1px solid rgba(200, 155, 60, 0.55) !important;
+  box-shadow: 0 0 12px rgba(200, 155, 60, 0.25) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CINEMATIC HEADING GLOW
+   ═══════════════════════════════════════════════════ */
+
+section h2 {
+  text-shadow:
+    0 0 10px rgba(255,160,60,0.2),
+    0 0 30px rgba(255,160,60,0.08),
+    0 0 60px rgba(255,130,40,0.04);
+  position: relative;
+}
+
+/* Soft radial glow behind heading */
+section h2::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 150px;
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 140, 26, 0.08) 0%,
+    rgba(246, 183, 60, 0.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ═══════════════════════════════════════════════════
+   AURORA GRADIENT LIGHT
+   ═══════════════════════════════════════════════════ */
+
+@keyframes aurora-move {
+  0% { transform: translateX(-20%) translateY(-10%) rotate(0deg); }
+  33% { transform: translateX(10%) translateY(5%) rotate(120deg); }
+  66% { transform: translateX(-5%) translateY(-5%) rotate(240deg); }
+  100% { transform: translateX(-20%) translateY(-10%) rotate(360deg); }
+}
+
+.aurora-gradient {
+  position: fixed;
+  inset: -50%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(0,80,160,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(255,130,40,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 20%, rgba(10,31,61,0.1) 0%, transparent 50%);
+  animation: aurora-move 45s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════
+   GLASS CARD
+   ═══════════════════════════════════════════════════ */
+
+.glow-card {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.glow-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(255, 140, 26, 0.25);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 130, 40, 0.12),
+    inset 0 0 20px rgba(255, 140, 26, 0.02);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(255, 140, 26, 0.18);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 12px rgba(255,140,26,0.06);
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLL PROGRESS
+   ═══════════════════════════════════════════════════ */
+
+.scroll-progress {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,140,26,0.8), rgba(246,183,60,0.6));
+  z-index: 100;
+  transform-origin: left;
+  box-shadow: 0 0 8px rgba(246,183,60,0.2);
+}
+
+/* ═══════════════════════════════════════════════════
+   SAFFRON LINE
+   ═══════════════════════════════════════════════════ */
+
+.saffron-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg, transparent, rgba(246,183,60,0.3) 30%, rgba(246,183,60,0.5) 50%,
+    rgba(246,183,60,0.3) 70%, transparent
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   SERVICES SECTION
+   ═══════════════════════════════════════════════════ */
+
+/* Background is applied directly on section#services above */
+
+.services-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 80px 20px;
+}
+
+.arch-overlay {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  height: 250px;
+  margin-bottom: 0;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.arch-overlay img {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.65;
+  mix-blend-mode: luminosity;
+  filter: brightness(0.8) contrast(1.1) drop-shadow(0 0 30px rgba(0,0,0,0.9));
+}
+
+.services-title {
+  font-size: 44px;
+  letter-spacing: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 0;
+  background: linear-gradient(90deg, #f6b73c, #c79a3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.services-subtitle {
+  max-width: 600px;
+  margin: 10px auto 0 auto;
+  opacity: 0.75;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.services-divider-wrap {
+  width: 140px;
+  margin: 15px auto 20px auto;
+}
+
+.services-divider-wrap img {
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  margin-top: 10px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(200, 155, 60, 0.15);
+}
+
+.service-card h3 {
+  background: linear-gradient(90deg, #e5c676, #c79a3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+.service-card p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.service-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 155, 60, 0.12);
+  border: 1px solid rgba(200, 155, 60, 0.25);
+  padding: 10px;
+  margin-bottom: 16px;
+  color: #f6b73c;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .arch-overlay {
+    height: 100px;
+  }
+
+  .services-container {
+    padding: 0 16px 60px 16px;
+  }
+
+  .services-title {
+    font-size: 32px;
+    letter-spacing: 3px;
+  }
+
+  .services-subtitle {
+    font-size: 14px;
+  }
+
+  .services-grid {
+    gap: 20px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ═══════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .aurora-gradient { animation: none !important; opacity: 0.15 !important; }
+  section h2::before { display: none; }
+  section h2 { text-shadow: none; }
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER SECTION - PREMIUM BLENDING
+   ═══════════════════════════════════════════════════ */
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #e97400 0%,
+    #d45e00 40%,
+    #b84a00 70%,
+    #7a2e00 100%
+  );
+  color: #2b1400;
+  transform: translateZ(0);
+  will-change: transform;
+  z-index: 0;
+}
+
+/* 120px transition bridge from the previous section */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0),
+    rgba(233,116,0,0.35)
+  );
+  pointer-events: none;
+}
+
+/* Skeuomorphic inner lighting (highlight + shadow) */
+.footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow:
+    inset 0 12px 30px rgba(255,255,255,0.10),
+    inset 0 -30px 50px rgba(0,0,0,0.35);
+}
+
+.footer-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://github.com/fralstan-boop/etwf/blob/main/1000073956_upscayl_4x.png?raw=true");
+  background-repeat: repeat;
+  background-size: 650px auto;
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 3;
+}
+
+.footer-brand-stamp {
+  filter: brightness(0); /* Make the brand mark solid black */
+  width: clamp(260px, 18vw, 360px);
+  height: auto;
+  opacity: 0.96;
+  display: block;
+  margin-left: 0;
+}
+
+.footer a {
+  color: #3b1d00;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #000000;
 }

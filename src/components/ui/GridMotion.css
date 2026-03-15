@@ -1,0 +1,84 @@
+.noscroll {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+.gridMotion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Make the container massive so it never un-renders on wide screens while sliding */
+  width: 200vw;
+  transform: translateX(-25vw) rotate(-8deg); /* Give the tech angle */
+  transform-origin: center center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  will-change: transform;
+}
+
+.row__item {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 160px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  position: relative;
+  opacity: 0.6; /* Dim the grid aggressively so it doesn't distract from cards */
+  transition: opacity 0.3s ease;
+}
+
+.row__item:hover {
+  opacity: 1;
+}
+
+.row__item-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row__item-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(80%) contrast(1.2) brightness(0.6);
+  mix-blend-mode: luminosity;
+}
+
+.row__item-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 14px;
+  color: rgba(156, 163, 175, 0.6);
+  padding: 1rem;
+  text-align: center;
+}

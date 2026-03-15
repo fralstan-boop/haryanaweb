@@ -1,0 +1,6 @@
+.distortion-container {
+  overflow: hidden;
+}
+.distortion-container canvas {
+  display: block;
+}

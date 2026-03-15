@@ -1,0 +1,63 @@
+.bento-section {
+  position: relative;
+}
+
+.magic-bento-card {
+  position: relative;
+  /* The glow variables are updated by GSAP */
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 300px;
+  --glow-color: 246, 183, 60; /* Saffron default */
+}
+
+/* 
+  The border glow uses a CSS mask to only show the gradient on the border area.
+  padding: 1px matches the border width.
+*/
+.magic-bento-card--border-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    circle var(--glow-radius) at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.8)),
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+  mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+/* Subtle inner fill glow */
+.magic-bento-card--border-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle var(--glow-radius) at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.15)),
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.particle {
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.global-spotlight {
+  pointer-events: none;
+  will-change: transform, opacity, left, top;
+}

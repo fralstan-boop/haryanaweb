@@ -1,0 +1,45 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import LazySection from "@/components/LazySection";
+
+// Dynamic imports for heavy below-the-fold sections
+const FeaturedWorkSection = dynamic(() => import("@/components/sections/FeaturedWorkSection"), { 
+  ssr: false, 
+  loading: () => <div className="h-[400px]" /> 
+});
+const HayaOsintSection = dynamic(() => import("@/components/sections/HayaOsintSection"), { 
+  ssr: false, 
+  loading: () => <div className="h-[600px]" /> 
+});
+const CommunitySection = dynamic(() => import("@/components/sections/CommunitySection"), { 
+  ssr: false, 
+  loading: () => <div className="h-[600px]" /> 
+});
+const HayaSMPSection = dynamic(() => import("@/components/sections/HayaSMPSection"), { 
+  ssr: false, 
+  loading: () => <div className="h-[600px]" /> 
+});
+const ServicesSection = dynamic(() => import("@/components/sections/ServicesSection"), { 
+  ssr: false, 
+  loading: () => <div className="h-[600px]" /> 
+});
+const ContactSection = dynamic(() => import("@/components/sections/ContactSection"), { 
+  ssr: false, 
+  loading: () => <div className="h-[600px]" /> 
+});
+const SectionDivider = dynamic(() => import("@/components/SectionDivider"), { ssr: false });
+
+export default function PageSections() {
+  return (
+    <>
+      <LazySection><SectionDivider index={0} /></LazySection>
+      <LazySection><FeaturedWorkSection /></LazySection>
+      <LazySection><HayaOsintSection /></LazySection>
+      <LazySection><CommunitySection /></LazySection>
+      <LazySection><HayaSMPSection /></LazySection>
+      <LazySection><ServicesSection /></LazySection>
+      <LazySection><ContactSection /></LazySection>
+    </>
+  );
+}
