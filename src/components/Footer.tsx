@@ -27,7 +27,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
-                src="https://github.com/fralstan-boop/etwf/blob/main/hayacorp.png?raw=true" 
+                src="/images/hayacorp.png" 
                 alt="HayaCorp logo"
                 className="footer-brand-stamp"
               />

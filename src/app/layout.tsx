@@ -51,6 +51,11 @@ export const metadata: Metadata = {
     description: siteConfig.brand.seoDescription,
     images: ["/api/og"],
   },
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   other: {
     "theme-color": "#0a0e1a",
   },
@@ -65,7 +70,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteConfig.brand.name,
-    url: "https://hayanura.in",
+    url: "https://haryanaweb.vercel.app",
     description: siteConfig.brand.description,
     sameAs: [
       siteConfig.links.youtube,
@@ -78,15 +83,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="icon" href="/favicon.png" />
         <link 
           rel="preload" 
           as="image" 
-          href="https://github.com/fralstan-boop/etwf/blob/main/file_000000000d4c7208a829d326a656ba57.png?raw=true" 
+          href="/images/golden-arch.png" 
         />
         <link 
           rel="preload" 
           as="image" 
-          href="https://github.com/fralstan-boop/etwf/blob/main/servicebg.png?raw=true" 
+          href="/images/services-bg.png" 
         />
         <link 
           rel="preload" 

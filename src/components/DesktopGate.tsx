@@ -29,7 +29,7 @@ export default function DesktopGate({ children }: { children: React.ReactNode })
           </div>
 
           <img
-            src="/hayacorp.png"
+            src="/images/hayacorp.png"
             alt="HayaCorp"
             className="mx-auto max-w-[320px] opacity-90"
           />

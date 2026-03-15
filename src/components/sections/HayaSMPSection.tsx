@@ -157,7 +157,7 @@ const HayaSMPSection = () => {
               {/* Premium Screenshot Display inside the Card */}
               <div className="w-full relative rounded-[16px] overflow-hidden border border-white/10 shadow-2xl mb-8 group bg-black/50">
                 <Image
-                  src="https://github.com/fralstan-boop/etwf/blob/main/ssimg.png?raw=true"
+                  src="/images/hayasmp/ssimg.png"
                   alt="HayaSMP World Screenshot"
                   width={640}
                   height={360}

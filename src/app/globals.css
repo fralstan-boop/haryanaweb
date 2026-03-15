@@ -121,7 +121,7 @@ section#services {
 .services-parallax-bg {
   position: absolute;
   inset: -5%; /* Oversize to allow for movement without showing edges */
-  background-image: url("https://github.com/fralstan-boop/etwf/blob/main/servicebg.png?raw=true");
+  background-image: url("/images/services-bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -564,7 +564,7 @@ section h2::before {
 .footer-pattern {
   position: absolute;
   inset: 0;
-  background-image: url("https://github.com/fralstan-boop/etwf/blob/main/1000073956_upscayl_4x.png?raw=true");
+  background-image: url("/images/footer-overlay.png");
   background-repeat: repeat;
   background-size: 650px auto;
   opacity: 0.22;

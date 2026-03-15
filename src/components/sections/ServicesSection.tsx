@@ -17,9 +17,9 @@ import Image from "next/image";
 import FireParticles from "@/components/ui/FireParticles";
 
 const ARCH_URL =
-  "https://github.com/fralstan-boop/etwf/blob/main/file_000000000d4c7208a829d326a656ba57.png?raw=true";
+  "/images/golden-arch.png";
 const DIVIDER_URL =
-  "https://github.com/fralstan-boop/etwf/blob/main/file_0000000063d071fa8c369fa34f78f906.png?raw=true";
+  "/images/services-divider.png";
 
 /* ── Framer Motion variants ── */
 const staggerContainer: Variants = {
