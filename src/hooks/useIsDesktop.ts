@@ -8,9 +8,22 @@ export default function useIsDesktop() {
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
+    
+    const checkIsDesktop = () => {
+      // 1. Check screen width (Standard desktop breakpoint)
+      const isLargeScreen = media.matches;
+      
+      // 2. Check User Agent (Allows mobile users in "Desktop Mode")
+      // Mobile "Desktop Mode" usually spoofs a Desktop UA (Windows, Macintosh, or X11/Linux)
+      const ua = navigator.userAgent;
+      const isDesktopUA = /Windows|Macintosh|X11/.test(ua);
+      
+      // We allow access if it's a large screen OR a desktop-spoofing UA
+      return isLargeScreen || isDesktopUA;
+    };
 
     const update = () => {
-      setIsDesktop(media.matches);
+      setIsDesktop(checkIsDesktop());
       setChecked(true);
     };
 
