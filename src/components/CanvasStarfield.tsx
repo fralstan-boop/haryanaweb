@@ -13,7 +13,7 @@ export default function CanvasStarfield() {
         if (!ctx) return;
 
         let animationFrameId: number;
-        let stars: { x: number, y: number, radius: number, alpha: number, twinkleSpeed: number, glow: number }[] = [];
+        let stars: { x: number, y: number, radius: number, alpha: number, twinkleSpeed: number }[] = [];
         let resizeObserver: ResizeObserver;
 
         const initStars = () => {
