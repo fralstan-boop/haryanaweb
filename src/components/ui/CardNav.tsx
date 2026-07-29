@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import "./CardNav.css";
 
 interface CardNavProps {
   navItems: {
     title: string;
-    links: { label: string; href: string }[];
+    links: { label: string; href: string; icon?: React.ReactNode }[];
     background: string;
   }[];
   scrolled: boolean;
@@ -16,45 +16,8 @@ interface CardNavProps {
 
 export default function CardNav({ navItems, scrolled }: CardNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    if (isOpen) {
-      gsap.to(container, {
-        height: "auto", // Automatically resolves to the required height of expanded cards
-        duration: 0.65,
-        ease: "back.out(1.2)", // Soft bounce on container expansion
-      });
-      gsap.to(cardsRef.current, {
-        y: 0,
-        opacity: 1,
-        stagger: 0.08,
-        duration: 0.55,
-        ease: "back.out(1.5)", // Soft bounce on items appearing
-        delay: 0.15,
-      });
-    } else {
-      gsap.to(container, {
-        height: 64, // Collapsed height
-        duration: 0.5,
-        ease: "back.in(1.2)", // Bouncy retreat for container
-        delay: 0.15,
-      });
-      gsap.to(cardsRef.current, {
-        y: 20,
-        opacity: 0,
-        stagger: 0.04,
-        duration: 0.4,
-        ease: "back.in(1.5)", // Bouncy retreat for items
-      });
-    }
-  }, [isOpen]);
 
   // Close menu on navigation
   useEffect(() => {
@@ -65,7 +28,7 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
 
   return (
     <div className={`card-nav-container ${scrolled ? "scrolled" : ""}`}>
-      <div ref={containerRef} className={`card-nav ${isOpen ? "open" : ""}`}>
+      <div className={`card-nav ${isOpen ? "open" : ""}`}>
         {/* Top Navbar Area */}
         <div className="card-nav-top">
           {/* Left: Hamburger */}
@@ -106,33 +69,60 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
         </div>
 
         {/* Expanded Navigation Cards Area */}
-        <div className="card-nav-content">
-          {navItems.map((item, index) => (
-            <div
-              key={item.title}
-              ref={(el) => {
-                cardsRef.current[index] = el;
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.section
+              initial="collapsed"
+              animate="open"
+              exit="collapsed"
+              variants={{
+                open: { height: "auto", opacity: 1 },
+                collapsed: { height: 0, opacity: 0 }
               }}
-              className="nav-card"
-              style={{ background: item.background }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
             >
-              <h3 className="nav-card-label">{item.title}</h3>
-              <div className="nav-card-links">
-                {item.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="nav-card-link group"
-                    onClick={() => setIsOpen(false)}
+              <div className="px-4 pb-5 pt-2 flex flex-col md:flex-row gap-5">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 10, opacity: 0 }}
+                    transition={{ 
+                      duration: 0.4, 
+                      delay: isOpen ? index * 0.05 : 0,
+                      ease: "easeOut"
+                    }}
+                    className="flex-1 rounded-[18px] p-7 md:p-9 flex flex-col border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                    style={{ background: item.background }}
                   >
-                    <span className="nav-card-link-icon">↗</span>
-                    {link.label}
-                  </a>
+                    <h3 className="font-cinzel font-bold text-xl md:text-2xl text-amber-500 mb-6 tracking-wider drop-shadow-md">
+                      {item.title}
+                    </h3>
+                    <div className="flex flex-col gap-4">
+                      {item.links.map((link) => (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          className="group font-inter text-[15px] font-medium text-slate-300 hover:text-white flex items-center transition-all duration-300"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <span className="flex items-center justify-center text-[15px] w-9 h-9 rounded-full bg-white/5 text-amber-500 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-orange-500 group-hover:text-navy-950 mr-4 transition-all duration-300 shadow-sm">
+                            {link.icon ? link.icon : "↗"}
+                          </span>
+                          <span className="group-hover:translate-x-1.5 transition-transform duration-300 tracking-wide">
+                            {link.label}
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
-          ))}
-        </div>
+            </motion.section>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

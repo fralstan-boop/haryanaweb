@@ -19,45 +19,46 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: `${siteConfig.brand.name} — ${siteConfig.brand.tagline}`,
-    template: `%s | ${siteConfig.brand.name}`,
-  },
-  description: siteConfig.brand.seoDescription,
+  title: "Hayanura | Geopolitics, History & Strategic Analysis",
+  description: "Cinematic geopolitical storytelling, defence analysis, and historical insights from Hayanura.",
   keywords: [
-    "HAYANURA",
     "geopolitics",
-    "Indian history",
-    "animated storytelling",
-    "military",
-    "defence",
-    "India",
+    "history",
+    "defence analysis",
+    "military strategy",
+    "India geopolitics",
+    "Hayanura"
   ],
-  authors: [{ name: siteConfig.brand.name }],
-  creator: siteConfig.brand.name,
   metadataBase: new URL("https://hayanura.in"),
+  alternates: {
+    canonical: "https://hayanura.in",
+  },
   openGraph: {
-    type: "website",
-    locale: "en_IN",
+    title: "HAYANURA | Geopolitics, History & Strategic Analysis",
+    description: "Cinematic geopolitical storytelling, defence analysis, and historical insights.",
     url: "https://hayanura.in",
-    siteName: siteConfig.brand.name,
-    title: `${siteConfig.brand.name} — ${siteConfig.brand.tagline}`,
-    description: siteConfig.brand.seoDescription,
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: siteConfig.brand.name }],
+    siteName: "Hayanura",
+    images: [
+      {
+        url: "https://hayanura.in/og-image.jpg?v=4",
+        width: 1200,
+        height: 630,
+        alt: "HAYANURA | Geopolitics, History & Strategic Analysis"
+      }
+    ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.brand.name,
-    description: siteConfig.brand.seoDescription,
-    images: ["/api/og"],
+    title: "HAYANURA | Geopolitics, History & Strategic Analysis",
+    description: "Cinematic geopolitical storytelling, defence analysis, and historical insights.",
+    images: ["https://hayanura.in/og-image.jpg?v=4"],
   },
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
     apple: "/favicon.png",
-  },
-  other: {
-    "theme-color": "#0a0e1a",
   },
 };
 
@@ -68,16 +69,39 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: siteConfig.brand.name,
-    url: "https://haryanaweb.vercel.app",
-    description: siteConfig.brand.description,
-    sameAs: [
-      siteConfig.links.youtube,
-      siteConfig.links.twitter,
-      siteConfig.links.instagram,
-      siteConfig.links.discord,
-    ],
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://hayanura.in/#organization",
+        name: "HAYANURA",
+        url: "https://hayanura.in",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://hayanura.in/logo.png"
+        },
+        description: "Geopolitical storytelling, defence analysis, and historical narratives.",
+        sameAs: [
+          siteConfig.links.youtube,
+          siteConfig.links.instagram,
+          siteConfig.links.twitter,
+          siteConfig.links.discord,
+        ],
+      },
+      {
+        "@type": "Person",
+        "@id": "https://hayanura.in/#person",
+        name: "HAYANURA Creator",
+        url: "https://hayanura.in",
+        jobTitle: "Creator & Animator",
+        worksFor: {
+          "@id": "https://hayanura.in/#organization"
+        },
+        sameAs: [
+          siteConfig.links.youtube,
+          siteConfig.links.instagram,
+        ]
+      }
+    ]
   };
 
   return (

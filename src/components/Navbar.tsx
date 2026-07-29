@@ -2,13 +2,21 @@
 
 import { useState, useEffect } from "react";
 import CardNav from "@/components/ui/CardNav";
+import { FaHome, FaInfoCircle, FaUsers, FaBriefcase, FaSearch, FaCubes, FaHandshake, FaEnvelope, FaDiscord, FaYoutube, FaInstagram } from "react-icons/fa";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let scrollTicking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -21,29 +29,29 @@ export default function Navbar() {
       title: "Navigation",
       background: "#0B1426",
       links: [
-        { label: "Home", href: "#hero" },
-        { label: "About", href: "#about" },
-        { label: "Community", href: "#community" },
+        { label: "Home", href: "#hero", icon: <FaHome /> },
+        { label: "About", href: "#about", icon: <FaInfoCircle /> },
+        { label: "Community", href: "#community", icon: <FaUsers /> },
       ]
     },
     {
       title: "Projects",
       background: "#101C35",
       links: [
-        { label: "Work", href: "#work" },
-        { label: "HayaOSINT", href: "#hayaosint" },
-        { label: "HayaSMP", href: "#smp" },
-        { label: "Services", href: "#services" },
+        { label: "Work", href: "#work", icon: <FaBriefcase /> },
+        { label: "HayaOSINT", href: "#hayaosint", icon: <FaSearch /> },
+        { label: "HayaSMP", href: "#hayasmp", icon: <FaCubes /> },
+        { label: "Services", href: "#services", icon: <FaHandshake /> },
       ]
     },
     {
       title: "Connect",
       background: "#16284A",
       links: [
-        { label: "Contact", href: "#contact" },
-        { label: "Our Discord", href: "https://dsc.gg/hayanura" },
-        { label: "YouTube Channel", href: "https://www.youtube.com/@HAYANURA" },
-        { label: "Instagram", href: "https://instagram.com/@hayanura_official" },
+        { label: "Contact", href: "#contact", icon: <FaEnvelope /> },
+        { label: "Our Discord", href: "https://dsc.gg/hayanura", icon: <FaDiscord /> },
+        { label: "YouTube Channel", href: "https://www.youtube.com/@HAYANURA", icon: <FaYoutube /> },
+        { label: "Instagram", href: "https://instagram.com/@hayanura_official", icon: <FaInstagram /> },
       ]
     }
   ];

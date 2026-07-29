@@ -161,9 +161,9 @@ section#contact h2 {
 /* ── Contact Section - Liquid Glass + Skeuomorphic Panel ── */
 .contact-panel {
   position: relative;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  background: rgba(8, 12, 24, 0.65); /* Darker frosted glass for legibility */
+  backdrop-filter: blur(48px) saturate(140%);
+  -webkit-backdrop-filter: blur(48px) saturate(140%);
   border-radius: 22px;
   border: 1px solid rgba(200, 155, 60, 0.35); /* Golden edge glow integration */
   padding: 40px;

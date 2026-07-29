@@ -27,8 +27,8 @@ export default function GamingSection() {
   return (
     <SectionWrapper
       id="hayasmp"
-      title="HayaSMP"
-      subtitle="Minecraft civilization builder — factions, diplomacy, and wars."
+      title="Haya SMP"
+      subtitle="Minecraft civilization builder. Factions, diplomacy, and wars."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Info */}
@@ -39,7 +39,7 @@ export default function GamingSection() {
           <p className="text-lg text-text-secondary leading-relaxed">
             HayaSMP is a public Minecraft server where players build
             civilizations, forge alliances, and engage in strategic warfare.
-            It&apos;s geopolitics — but in blocks.
+            It&apos;s geopolitics, but in blocks.
           </p>
           <p className="text-base text-text-secondary leading-relaxed">
             Planned features include factions, diplomacy mechanics, wars, and

@@ -5,34 +5,9 @@ import { siteConfig } from "@/lib/site.config";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
 import { FaDiscord, FaFire, FaCommentDots, FaCheck, FaHandHoldingHeart, FaCalendarDays, FaNewspaper } from "react-icons/fa6";
 import CountUp from "react-countup";
+import { useDiscordStats } from "@/hooks/useDiscordStats";
 
 import GridMotion from '@/components/ui/GridMotion';
-
-function useDiscordStats() {
-  const [stats, setStats] = useState({ members: 2928, online: 354 });
-
-  useEffect(() => {
-    async function fetchStats() {
-      try {
-        const res = await fetch("/api/discord-stats");
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.members > 0) {
-            setStats(data);
-          }
-        }
-      } catch (error) {
-        console.error("Failed to fetch Discord stats", error);
-      }
-    }
-    
-    fetchStats();
-    const interval = setInterval(fetchStats, 30000); // Poll every 30s
-    return () => clearInterval(interval);
-  }, []);
-
-  return stats;
-}
 
 const CommunitySection = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -50,11 +25,14 @@ const CommunitySection = () => {
     <section
       id="community"
       ref={sectionRef}
-      className={`relative w-full overflow-hidden bg-[#0b1120] community-section flex items-center justify-center font-inter pt-10 ${!isVisible ? 'paused-animations' : ''}`}
+      className={`relative w-full overflow-hidden bg-[#0b1120] community-section flex items-center justify-center font-inter ${!isVisible ? 'paused-animations' : ''}`}
       style={{ contentVisibility: 'auto', contain: 'layout paint' }}
     >
       {/* 10. Top Blur Fade for Seamless Hero Transition */}
-      <div className="absolute top-[0px] left-0 right-0 h-[220px] bg-gradient-to-b from-[#02060F] to-transparent z-[3] pointer-events-none" />
+      <div className="absolute top-[0px] left-0 right-0 h-[140px] bg-gradient-to-b from-[#02060F] to-transparent z-[3] pointer-events-none" />
+
+      {/* Bottom Blur Fade for Seamless SMP Transition */}
+      <div className="absolute bottom-[0px] left-0 right-0 h-[160px] bg-gradient-to-t from-[#0b1120] to-transparent z-[3] pointer-events-none" />
 
       {/* NEW: Interactive GSAP Background */}
       <div className="absolute inset-0 z-[1] w-full h-full pointer-events-none overflow-hidden">
@@ -105,7 +83,7 @@ const CommunitySection = () => {
       <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_20%_30%,rgba(99,102,241,0.35),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(34,197,94,0.25),transparent_45%),radial-gradient(circle_at_50%_80%,rgba(139,92,246,0.2),transparent_50%)] mix-blend-screen pointer-events-none" />
 
       {/* MAIN TWO-COLUMN GRID */}
-      <div className="relative z-[4] w-full max-w-[1300px] mx-auto px-6 py-[100px] md:py-[140px] grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="relative z-[4] w-full max-w-[1300px] mx-auto px-6 pt-4 md:pt-8 pb-[80px] md:pb-[120px] grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
         {/* LEFT COLUMN: Texts & Pills */}
         <div className="flex flex-col items-start text-left space-y-8">

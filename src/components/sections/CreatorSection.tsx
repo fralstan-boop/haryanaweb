@@ -5,17 +5,19 @@ import SectionWrapper from "@/components/SectionWrapper";
 import { staggerItem } from "@/components/SectionWrapper";
 import { siteConfig } from "@/lib/site.config";
 import { motion, useReducedMotion, useMotionValue, useMotionTemplate } from "framer-motion";
-import { FaYoutube, FaEye, FaGlobe, FaDiscord, FaFilm } from "react-icons/fa6";
+import { FaYoutube, FaEye, FaClock, FaDiscord, FaFilm } from "react-icons/fa6";
 
 
 import LiquidChrome from "@/components/ui/LiquidChrome";
 import { MagicContainer, MagicCard } from "@/components/ui/MagicBento";
 import StatCounter from "@/components/ui/StatCounter";
+import { useDiscordStats } from "@/hooks/useDiscordStats";
 
 export default function CreatorSection() {
   const prefersReducedMotion = useReducedMotion();
   const noMotion = !!prefersReducedMotion;
-  
+  const discordStats = useDiscordStats();
+
   // Mouse tracking for interactive gradient
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -29,14 +31,14 @@ export default function CreatorSection() {
   const achievements = [
     { icon: FaYoutube, value: siteConfig.stats.subscribers, label: "YouTube Subscribers", color: "#FF0000", rgb: "255, 0, 0" },
     { icon: FaEye, value: siteConfig.stats.totalViews, label: "Total Views", color: "#f6b73c", rgb: "246, 183, 60" },
-    { icon: FaGlobe, value: "50+", label: "Countries Reached", color: "#4299e1", rgb: "66, 153, 225" },
-    { icon: FaDiscord, value: "2.9K+", label: "Discord Members", color: "#5865F2", rgb: "88, 101, 242" },
-    { icon: FaFilm, value: "100+", label: "Original Videos", color: "#10B981", rgb: "16, 185, 129" },
+    { icon: FaClock, value: "900+", label: "Hours Edited", color: "#4299e1", rgb: "66, 153, 225" },
+    { icon: FaDiscord, value: discordStats.members ? discordStats.members.toLocaleString() : "2.9K+", label: "Discord Members", color: "#5865F2", rgb: "88, 101, 242" },
+    { icon: FaFilm, value: "222", label: <>Original Videos<br /><span className="text-[10px] text-white/50 font-normal">Insta + YT</span></>, color: "#10B981", rgb: "16, 185, 129" },
   ];
 
   return (
-    <div 
-      className="relative group pb-12 overflow-hidden"
+    <div
+      className="relative group pb-2 overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       {/* Base Global Gradient / Liquid Chrome for Section */}
@@ -48,7 +50,7 @@ export default function CreatorSection() {
           interactive={!noMotion}
           style={{ opacity: 0.6 }} // Drop opacity slightly so text remains fully legible
         />
-        
+
         {/* Cinematic gradient overlay to darken edges and blend chrome into the void */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -60,8 +62,8 @@ export default function CreatorSection() {
 
       <SectionWrapper id="about" title="Who is HAYANURA?" subtitle="The shockingly unsugarcoated story behind the animations.">
         <MagicContainer className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start relative z-10">
-          
-          {/* Text Panels — 3/5 */}
+
+          {/* Text Panels: 3/5 */}
           <motion.div
             className="lg:col-span-3 space-y-6"
             variants={noMotion ? {} : staggerItem}
@@ -69,27 +71,26 @@ export default function CreatorSection() {
             <MagicCard enableTilt={true} enableStars={true} className="p-6 sm:p-8 rounded-2xl bg-[#091020]/60 backdrop-blur-md border border-white/5 relative group/card shadow-2xl">
               {/* Subtle inner card hover layer for depth */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-              
+
               <p className="text-[17px] text-text-secondary leading-relaxed font-medium relative z-10">
-                HAYANURA is less of a standard media channel and more of an ongoing, highly caffeinated attempt by an Indian boy to explain why the world is currently on fire—and exactly who is holding the match. 
-                We produce <span className="text-saffron-400 font-semibold drop-shadow-md">animated geopolitical and historical narratives</span>, mostly because real-life global power struggles are far too chaotic to understand without a good visual aid and some dramatic lighting.
+                HAYANURA is a solo-operated media channel focused on geopolitics, military strategy, and world history. Reaching over 287,000 subscribers and generating 115 million views across <a href="https://youtube.com/@hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">YouTube</a> and <a href="https://instagram.com/hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">Instagram</a>, the channel breaks down global conflicts using original motion graphics and extensive geographic research.
               </p>
             </MagicCard>
 
             <div className="flex flex-col gap-6">
               <MagicCard enableTilt={true} enableStars={true} className="p-6 sm:p-8 rounded-2xl bg-[#091020]/60 backdrop-blur-md border border-white/5 relative group/card shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#101C35]/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">No Sugarcoating</h4>
+                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">Research & Animation</h4>
                 <p className="text-[15px] sm:text-[16px] text-text-secondary/80 leading-relaxed relative z-10">
-                  Built for an audience that prefers their history raw. From the Mauryan Empire flexing its muscles to the massive modern Indo-Pacific strategic headache, we turn incredibly dense geopolitical realities into cinematic stories that actually make sense (and look undeniably cool).
+                  Every video is researched, scripted, and animated entirely by one creator. By analyzing historical military deployments, border disputes, and trade routes, we translate dense geopolitical reports into clear visual formats.
                 </p>
               </MagicCard>
 
               <MagicCard enableTilt={true} enableStars={true} className="p-6 sm:p-8 rounded-2xl bg-[#091020]/60 backdrop-blur-md border border-white/5 relative group/card shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#101C35]/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">The Ultimate Goal</h4>
+                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">Core Focus</h4>
                 <p className="text-[15px] sm:text-[16px] text-text-secondary/80 leading-relaxed relative z-10">
-                  Whether investigating border tensions or trying to figure out why superpowers just can&apos;t behave, the goal is simple: build a politically mature generation of Bharat. Or at the very least, a generation that sounds obnoxiously smart at dinner parties.
+                  The content focuses primarily on Indian foreign policy, historical empires, and modern flashpoints like the Indo-Pacific strategy. The channel prioritizes factual accuracy and spatial mapping to help audiences understand global power structures.
                 </p>
               </MagicCard>
             </div>
@@ -116,7 +117,7 @@ export default function CreatorSection() {
                   className="p-6 sm:p-8 rounded-2xl bg-[#091020]/80 backdrop-blur-xl border border-white/5 flex items-center gap-6 shadow-2xl relative group/stat"
                 >
                   {/* Micro hover gradient passing through the stat card */}
-                  <div 
+                  <div
                     className="absolute inset-0 opacity-0 group-hover/stat:opacity-100 transition duration-700 pointer-events-none"
                     style={{
                       background: `linear-gradient(120deg, transparent, ${item.color}08, transparent)`,

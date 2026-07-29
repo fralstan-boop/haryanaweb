@@ -23,7 +23,7 @@ const workflowSteps = [
   },
   {
     title: "Animation",
-    desc: "Bringing scripts to life with cinematic motion — dynamic maps, troop movements, and visual metaphors.",
+    desc: "Bringing scripts to life with cinematic motion: dynamic maps, troop movements, and visual metaphors.",
     accent: "#2b6cb0",
     img: "https://images.unsplash.com/photo-1626544827763-d516dce335e2?q=80&w=1200&auto=format&fit=crop",
   },
@@ -66,7 +66,7 @@ export default function BehindTheScenesSection() {
             </h3>
           </div>
           <p className="text-base sm:text-lg text-text-secondary/80 max-w-2xl mx-auto mb-8">
-            From raw intelligence to cinematic cut — discover how HAYANURA is meticulously constructed.
+            From raw intelligence to cinematic cut, discover how HAYANURA is meticulously constructed.
           </p>
           <GlowButton href={siteConfig.links.youtube} external variant="secondary">
             Our YouTube Channel

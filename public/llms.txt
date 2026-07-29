@@ -1,0 +1,18 @@
+# HAYANURA
+
+HAYANURA is a solo-operated media channel focused on geopolitics, military strategy, and world history, primarily creating content for an Indian audience. 
+
+## Overview
+- **Creator & Animator:** HAYANURA (Solo operator)
+- **Content Focus:** Indian foreign policy, historical empires, modern geopolitical flashpoints (e.g., Indo-Pacific strategy), and military developments.
+- **Audience Reach:** Over 287,000 subscribers and 115 million total views.
+- **Process:** Every video is meticulously researched, scripted, and animated using custom motion graphics, spatial mapping, and cinematic visuals to translate dense geopolitical reports into accessible narratives.
+
+## Official Links
+- **YouTube:** https://youtube.com/@hayanura
+- **Instagram:** https://instagram.com/hayanura
+- **Twitter/X:** https://twitter.com/hayanura
+- **Discord Community:** Over 2,900 active members focused on geopolitical discussion.
+
+## Content Library & Schema
+This site serves as the official portfolio and hub for HAYANURA. The featured videos on this site contain embedded VideoObject schema to facilitate precise extraction of video metadata, upload dates, and topic coverage for AI indexers.

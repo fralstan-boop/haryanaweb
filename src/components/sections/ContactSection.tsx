@@ -119,17 +119,10 @@ const ContactSection = () => {
 
   return (
     <div ref={containerRef} className={`relative ${!isVisible ? 'paused-animations' : ''}`} style={{ contain: 'layout paint' }}>
-    <SectionWrapper
-      id="contact"
-
-      title="Get in Touch"
-      subtitle="Business inquiries, collaborations, and custom projects."
-      className="overflow-hidden"
-    >
-      {/* ── Background Layer ── */}
+      {/* ── Background Layer (Rendered behind SectionWrapper at z-0) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Waves
-          lineColor="rgba(246, 183, 60, 0.35)"
+          lineColor="rgba(255, 180, 0, 0.95)"
           backgroundColor="transparent"
           waveSpeedX={0.0125}
           waveSpeedY={0.01}
@@ -141,12 +134,19 @@ const ContactSection = () => {
           xGap={12}
           yGap={36}
         />
-        {/* Subtle dark overlay for readability */}
-        <div className="absolute inset-0 bg-navy-950/20" />
-        {/* Vertical mask to fade waves at top/bottom */}
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-navy-950 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
+        {/* Soft edge masks to gently integrate top and bottom */}
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-navy-950/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-navy-950/30 to-transparent" />
       </div>
+
+      <SectionWrapper
+        id="contact"
+        title="Get in Touch"
+        subtitle="Business inquiries, collaborations, and custom projects."
+        className="overflow-hidden relative z-10 px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-12 md:pb-24"
+        hideDivider={true}
+        noPadding={true}
+      >
 
       <div className="relative z-10 max-w-2xl mx-auto">
         <motion.div

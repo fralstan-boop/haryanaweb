@@ -5,14 +5,14 @@ export const siteConfig = {
     mission:
       "Explaining geopolitics and history for the Indian generation.",
     description:
-      "HAYANURA creates animated geopolitical and historical narratives focused on global power struggles, military developments, and historical transformations — primarily for an Indian audience.",
+      "HAYANURA creates animated geopolitical and historical narratives focused on global power struggles, military developments, and historical transformations, primarily for an Indian audience.",
     seoDescription:
-      "HAYANURA — Animated geopolitical and historical storytelling for India. 286K+ subscribers, 110M+ views. Explore world history, defence updates, and modern Indian narratives.",
+      "HAYANURA | Animated geopolitical and historical storytelling for India. 287K+ subscribers, 115M+ views. Explore world history, defence updates, and modern Indian narratives.",
   },
 
   stats: {
-    subscribers: "286K+",
-    totalViews: "110M+",
+    subscribers: "287,543",
+    totalViews: "115,417,961",
     discordMembers: "2928+",
   },
 
@@ -22,7 +22,7 @@ export const siteConfig = {
     twitter: "https://x.com/AdityaBhas79458",
     instagram: "https://instagram.com/@hayanura_official",
     hayaosint: "https://hayalandia.netlify.app",
-    hayasmp: "https://hayasmp.vercel.app",
+    hayasmp: "https://smp.hayanura.in",
     email: "adbhs478@gmail.com",
   },
 

@@ -10,6 +10,7 @@ interface SectionWrapperProps {
   children: React.ReactNode;
   className?: string;
   noPadding?: boolean;
+  hideDivider?: boolean;
 }
 
 const staggerContainer: Variants = {
@@ -34,7 +35,7 @@ export const staggerItem: Variants = {
 /* ── Ornamental Divider SVG ── */
 function CinematicDivider() {
   return (
-    <div className="flex items-center justify-center py-10" aria-hidden="true">
+    <div className="flex items-center justify-center py-3" aria-hidden="true">
       <div
         className="h-px w-16 sm:w-24"
         style={{ background: "linear-gradient(90deg, transparent, rgba(246,183,60,0.3))" }}
@@ -85,6 +86,7 @@ export default function SectionWrapper({
   children,
   className = "",
   noPadding = false,
+  hideDivider = false,
 }: SectionWrapperProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
@@ -94,13 +96,13 @@ export default function SectionWrapper({
 
   return (
     <>
-      <CinematicDivider />
+      {!hideDivider && <CinematicDivider />}
 
       <section
         ref={ref}
         id={id}
         aria-labelledby={title ? headingId : undefined}
-        className={`relative z-10 ${noPadding ? "" : "px-4 sm:px-6 lg:px-8 py-16 md:py-[120px]"} ${className}`}
+        className={`relative z-10 ${noPadding ? "" : "px-4 sm:px-6 lg:px-8 py-8 md:py-16"} ${className}`}
       >
         <motion.div
           initial={prefersReducedMotion ? {} : "hidden"}

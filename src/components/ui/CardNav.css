@@ -12,7 +12,7 @@
 
 .card-nav {
   display: block;
-  height: 64px;
+  min-height: 64px;
   padding: 0;
   
   /* Glassmorphism Base */

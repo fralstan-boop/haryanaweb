@@ -35,7 +35,7 @@ export const newsItems: NewsItem[] = [
     id: "n4",
     headline: "Arctic Shipping Routes Reshape Global Trade",
     summary:
-      "Melting ice opens new northern passages — India, Russia, and China jockey for strategic advantage.",
+      "Melting ice opens new northern passages. India, Russia, and China jockey for strategic advantage.",
     category: "Global Affairs",
     date: "2026-03-02",
   },

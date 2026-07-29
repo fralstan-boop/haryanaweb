@@ -65,7 +65,7 @@ const HayaOsintSection = () => {
     <section 
       ref={ref} 
       id="hayaosint" 
-      className={`hayaosint-scene relative w-full h-[600px] md:h-[800px] flex items-center justify-center overflow-visible bg-[#02060F] ${!isVisible ? 'paused-animations' : ''}`}
+      className={`hayaosint-scene relative w-full h-[580px] md:h-[740px] flex items-center justify-center overflow-visible bg-[#02060F] ${!isVisible ? 'paused-animations' : ''}`}
       style={{ contain: 'layout paint' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -134,8 +134,11 @@ const HayaOsintSection = () => {
       </motion.div>
 
       {/* LAYER 4: Main Content (Logo + Text + Button) */}
-      <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center layer content -translate-y-[30px] md:-translate-y-[50px]">
+      <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center layer content -translate-y-[20px] md:-translate-y-[35px]">
         <div className="relative text-center max-w-[720px] mx-auto px-4 flex flex-col items-center">
+          
+          {/* Semantic Heading for SEO */}
+          <h2 className="sr-only">Geopolitical Content</h2>
           
           {/* Cinematic Light Beam (Behind Logo) */}
           <div 
@@ -220,7 +223,7 @@ const HayaOsintSection = () => {
       <div className="absolute inset-0 z-[6] pointer-events-none layer embers" />
 
       {/* Bottom Fade to elegantly hide soldier cuts */}
-      <div className="absolute bottom-0 left-0 w-full h-[100px] md:h-[160px] bg-gradient-to-t from-[#02060F] via-[#02060F]/80 to-transparent z-[7] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-[120px] md:h-[150px] bg-gradient-to-t from-[#02060F] via-[#02060F]/80 to-transparent z-[7] pointer-events-none" />
 
       <style jsx>{`
         .hayaosint-scene {

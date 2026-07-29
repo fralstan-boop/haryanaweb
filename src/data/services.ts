@@ -26,14 +26,14 @@ export const services: Service[] = [
     id: "s2",
     title: "Geopolitical Animations",
     description:
-      "Custom animated explainers on defence, diplomacy, or historical topics — tailored to your brand narrative.",
+      "Custom animated explainers on defence, diplomacy, or historical topics, tailored to your brand narrative.",
     icon: FaFilm,
   },
   {
     id: "s3",
     title: "Video Editing",
     description:
-      "Professional editing for creators and brands — cinematic motion graphics, pacing, and storytelling.",
+      "Professional editing for creators and brands. Cinematic motion graphics, pacing, and storytelling.",
     icon: FaScissors,
   },
   {

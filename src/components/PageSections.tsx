@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import LazySection from "@/components/LazySection";
+import { Video } from "@/data/videos";
 
 // Dynamic imports for heavy below-the-fold sections
 const FeaturedWorkSection = dynamic(() => import("@/components/sections/FeaturedWorkSection"), { 
@@ -30,11 +31,18 @@ const ContactSection = dynamic(() => import("@/components/sections/ContactSectio
 });
 const SectionDivider = dynamic(() => import("@/components/SectionDivider"), { ssr: false });
 
-export default function PageSections() {
+interface PageSectionsProps {
+  initialVideoData?: {
+    row1Items: Video[];
+    row2Items: Video[];
+  };
+}
+
+export default function PageSections({ initialVideoData }: PageSectionsProps) {
   return (
     <>
       <LazySection><SectionDivider index={0} /></LazySection>
-      <LazySection><FeaturedWorkSection /></LazySection>
+      <LazySection><FeaturedWorkSection videoData={initialVideoData} /></LazySection>
       <LazySection><HayaOsintSection /></LazySection>
       <LazySection><CommunitySection /></LazySection>
       <LazySection><HayaSMPSection /></LazySection>

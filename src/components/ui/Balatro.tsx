@@ -196,14 +196,27 @@ export default function Balatro({
       });
 
       const mesh = new Mesh(gl, { geometry, program });
-      let animationFrameId: number;
+      let animationFrameId: number = 0;
+      let isVisible = true;
 
       function update(time: number) {
+        if (!isVisible) return;
         animationFrameId = requestAnimationFrame(update);
         program.uniforms.iTime.value = time * 0.001;
         renderer.render({ scene: mesh });
       }
-      animationFrameId = requestAnimationFrame(update);
+
+      const observer = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animationFrameId) {
+          animationFrameId = requestAnimationFrame(update);
+        } else if (!isVisible && animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = 0;
+        }
+      }, { rootMargin: '200px' });
+      
+      observer.observe(container);
       container.appendChild(gl.canvas);
 
       function handleMouseMove(e: MouseEvent) {
@@ -217,7 +230,8 @@ export default function Balatro({
 
       // Store cleanup
       const cleanup = () => {
-        cancelAnimationFrame(animationFrameId);
+        observer.disconnect();
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
         window.removeEventListener("resize", resize);
         container.removeEventListener("mousemove", handleMouseMove);
         try {

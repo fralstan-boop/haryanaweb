@@ -130,7 +130,7 @@ const Waves: React.FC<WavesProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const boundingRef = useRef({ width: 0, height: 0, left: 0, top: 0 });
-  const noiseRef = useRef(new Noise(Math.random()));
+  const noiseRef = useRef<Noise | null>(null);
   const linesRef = useRef<any[]>([]);
   const mouseRef = useRef({
     x: -10,
@@ -188,6 +188,10 @@ const Waves: React.FC<WavesProps> = ({
 
 
   useEffect(() => {
+    if (!noiseRef.current) {
+      noiseRef.current = new Noise(Math.random());
+    }
+
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
@@ -229,6 +233,7 @@ const Waves: React.FC<WavesProps> = ({
       const lines = linesRef.current,
         mouse = mouseRef.current,
         noise = noiseRef.current;
+      if (!noise) return;
       const {
         waveSpeedX,
         waveSpeedY,
@@ -344,18 +349,24 @@ const Waves: React.FC<WavesProps> = ({
       const touch = e.touches[0];
       updateMouse(touch.clientX, touch.clientY);
     }
+    let scrollTicking = false;
     function updateScroll() {
-       // Just refresh bounds when scrolling
-       if (containerRef.current) {
-         boundingRef.current = containerRef.current.getBoundingClientRect();
+       // Throttle layout recalculation using requestAnimationFrame
+       if (!scrollTicking) {
+         window.requestAnimationFrame(() => {
+           if (containerRef.current) {
+             boundingRef.current = containerRef.current.getBoundingClientRect();
+           }
+           scrollTicking = false;
+         });
+         scrollTicking = true;
        }
     }
     function updateMouse(x: number, y: number) {
       const mouse = mouseRef.current;
-      if (!containerRef.current) return;
+      if (!containerRef.current || !boundingRef.current) return;
       
-      const b = containerRef.current.getBoundingClientRect();
-      boundingRef.current = b;
+      const b = boundingRef.current;
       
       mouse.x = x - b.left;
       mouse.y = y - b.top;

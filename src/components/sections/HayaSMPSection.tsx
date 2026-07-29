@@ -13,9 +13,9 @@ const IconDiplomacy = () => <FaHandshake />;
 const IconWar = () => <GiCrossedSwords size={20} />;
 
 /* ── Constants ── */
-const SERVER_IP = "mc.hayanura.fun";
+const SERVER_IP = "mc.hayanura.in";
 const DISCORD_LINK = "https://discord.gg/AQCH5ZRXT2";
-const WEBSITE_LINK = "https://hayasmp.vercel.app";
+const WEBSITE_LINK = "https://smp.hayanura.in";
 
 const HayaSMPSection = () => {
   const prefersReducedMotion = useReducedMotion();
@@ -48,7 +48,7 @@ const HayaSMPSection = () => {
     <section
       ref={sectionRef}
       id="hayasmp"
-      className={`relative w-full overflow-hidden flex items-center justify-center font-inter pt-10 pb-20 ${!isVisible ? 'paused-animations' : ''}`}
+      className={`relative w-full overflow-hidden flex items-center justify-center font-inter pt-10 pb-4 ${!isVisible ? 'paused-animations' : ''}`}
       style={{
 
         backgroundColor: "#0b1120", // Deep dark base
@@ -59,6 +59,12 @@ const HayaSMPSection = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
       `}</style>
+
+      {/* ── Top Blur Fade for Seamless Transition ── */}
+      <div className="absolute top-0 left-0 right-0 h-[160px] bg-gradient-to-b from-[#0b1120] to-transparent z-[3] pointer-events-none" />
+
+      {/* ── Bottom Blur Fade for Seamless Services Transition ── */}
+      <div className="absolute bottom-0 left-0 right-0 h-[180px] bg-gradient-to-t from-[#02060F] to-transparent z-[3] pointer-events-none" />
 
       {/* ── Interactive WebGL Background (Paused out of view) ── */}
       <div className="absolute inset-0 z-[1] opacity-30">

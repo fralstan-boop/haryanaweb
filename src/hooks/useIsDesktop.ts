@@ -8,30 +8,24 @@ export default function useIsDesktop() {
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
-    
-    const checkIsDesktop = () => {
-      // 1. Check screen width (Standard desktop breakpoint)
-      const isLargeScreen = media.matches;
-      
-      // 2. Check User Agent (Allows mobile users in "Desktop Mode")
-      // Mobile "Desktop Mode" usually spoofs a Desktop UA (Windows, Macintosh, or X11/Linux)
+    const check = () => {
       const ua = navigator.userAgent;
-      const isDesktopUA = /Windows|Macintosh|X11/.test(ua);
+      const isGoogleBot = /Googlebot|Mediapartners-Google|AdsBot-Google/i.test(ua);
+      const isDesktopUA = /Windows|Macintosh|Linux/i.test(ua);
       
-      // We allow access if it's a large screen OR a desktop-spoofing UA
-      return isLargeScreen || isDesktopUA;
-    };
-
-    const update = () => {
-      setIsDesktop(checkIsDesktop());
+      const mediaQuery = window.matchMedia("(min-width: 1024px)");
+      
+      // A device is considered "desktop" if:
+      // 1. It has a large screen width (Desktop/Tablet landscape)
+      // 2. Its User Agent explicitly claims to be a desktop OS (Desktop Mode on mobile)
+      // 3. It's identified as Googlebot (to avoid blocking SEO crawlers)
+      setIsDesktop(mediaQuery.matches || isDesktopUA || isGoogleBot);
       setChecked(true);
     };
 
-    update();
-
-    media.addEventListener("change", update);
-
-    return () => media.removeEventListener("change", update);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   return { isDesktop, checked };

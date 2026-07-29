@@ -159,9 +159,6 @@ const ServicesSection = () => {
     <div ref={bgRef} className="relative w-full">
 
 
-      {/* ── Cinematic divider before section ── */}
-      <CinematicDivider />
-
       {/* ── Main section ── */}
       <section
         ref={sectionRef}
