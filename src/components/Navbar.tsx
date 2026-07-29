@@ -41,7 +41,6 @@ export default function Navbar() {
         { label: "Work", href: "#work", icon: <FaBriefcase /> },
         { label: "HayaOSINT", href: "#hayaosint", icon: <FaSearch /> },
         { label: "HayaSMP", href: "#hayasmp", icon: <FaCubes /> },
-        { label: "Services", href: "#services", icon: <FaHandshake /> },
       ]
     },
     {

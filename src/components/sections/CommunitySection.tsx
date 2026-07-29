@@ -123,10 +123,10 @@ const CommunitySection = () => {
 
           <div className="community-card-wrapper w-full max-w-[500px]">
             {/* 3. Strong Anchor Glow behind the card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(99,102,241,0.38)_0%,transparent_60%)] blur-[50px] z-[0] pointer-events-none rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(99,102,241,0.25)_0%,transparent_60%)] z-[0] pointer-events-none rounded-full" />
 
             {/* subtle intense beam directly behind card */}
-            <div className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[300px] h-[200px] bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.5)_0%,transparent_70%)] blur-[40px] z-[1] pointer-events-none" />
+            <div className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[300px] h-[200px] bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.4)_0%,transparent_70%)] z-[1] pointer-events-none" />
 
             {/* ----- FLOATING CHIPS ----- */}
             <div className="stat-chip debates">
@@ -218,7 +218,6 @@ const CommunitySection = () => {
           font-size: 17px;
           color: #e2e8f0;
           font-weight: 600;
-          backdrop-filter: blur(8px);
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           width: 100%;
         }
@@ -240,8 +239,7 @@ const CommunitySection = () => {
 
         .stat-chip {
           position: absolute;
-          background: rgba(15, 23, 42, 0.75);
-          backdrop-filter: blur(6px);
+          background: rgba(15, 23, 42, 0.9);
           border: 1px solid rgba(99, 102, 241, 0.35);
           border-radius: 14px;
           padding: 10px 18px;
@@ -329,8 +327,7 @@ const CommunitySection = () => {
         }
 
         .discord-card {
-          background: linear-gradient(150deg, rgba(15,23,42,0.85) 0%, rgba(9,14,24,0.98) 100%);
-          backdrop-filter: blur(12px);
+          background: linear-gradient(150deg, rgba(15,23,42,0.95) 0%, rgba(9,14,24,0.98) 100%);
           border-radius: 26px;
           border: 1px solid rgba(99,102,241,0.4);
           border-top-color: rgba(139,92,246,0.6);

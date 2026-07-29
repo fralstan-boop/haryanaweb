@@ -18,16 +18,15 @@ export default function CanvasStarfield() {
 
         const initStars = () => {
             stars = [];
-            // Very dense starfield based on surface area
-            const numStars = Math.floor((canvas.width * canvas.height) / 1000); 
+            // Optimized star density
+            const numStars = Math.floor((canvas.width * canvas.height) / 4000); 
             for (let i = 0; i < numStars; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     radius: Math.random() * 1.5 + 0.3, // Size variations
                     alpha: Math.random(),
-                    twinkleSpeed: (Math.random() * 0.015) + 0.005,
-                    glow: Math.random() * 8 + 3 // Powerful blur radius for glowing effect
+                    twinkleSpeed: (Math.random() * 0.015) + 0.005
                 });
             }
         };
@@ -65,9 +64,12 @@ export default function CanvasStarfield() {
 
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-                ctx.shadowBlur = star.glow * star.alpha;
-                ctx.shadowColor = `rgba(255, 255, 255, ${star.alpha})`;
+                ctx.fill();
+
+                // Draw simple soft glow (much faster than shadowBlur)
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius * 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * 0.15})`;
                 ctx.fill();
             });
 

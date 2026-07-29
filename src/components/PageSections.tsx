@@ -21,10 +21,7 @@ const HayaSMPSection = dynamic(() => import("@/components/sections/HayaSMPSectio
   ssr: false, 
   loading: () => <div className="h-[600px]" /> 
 });
-const ServicesSection = dynamic(() => import("@/components/sections/ServicesSection"), { 
-  ssr: false, 
-  loading: () => <div className="h-[600px]" /> 
-});
+
 const ContactSection = dynamic(() => import("@/components/sections/ContactSection"), { 
   ssr: false, 
   loading: () => <div className="h-[600px]" /> 
@@ -44,7 +41,7 @@ export default function PageSections({ initialVideoData }: PageSectionsProps) {
       <LazySection><HayaOsintSection /></LazySection>
       <LazySection><CommunitySection /></LazySection>
       <LazySection><HayaSMPSection /></LazySection>
-      <LazySection><ServicesSection /></LazySection>
+
       <LazySection><ContactSection /></LazySection>
     </>
   );
