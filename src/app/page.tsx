@@ -1,8 +1,10 @@
+import { cookies } from "next/headers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import PageSections from "@/components/PageSections";
+import LoadingScreen from "@/components/LoadingScreen";
 import { getYouTubeData } from "@/data/fetchVideos";
 
 // Static imports for light above-the-fold content
@@ -11,6 +13,8 @@ import CreatorSection from "@/components/sections/CreatorSection";
 
 export default async function Home() {
   const videoData = await getYouTubeData();
+  const cookieStore = cookies();
+  const hasSeenLoading = cookieStore.has("hayanura-loading-seen");
 
   // videoData is an object: { row1Items: [...], row2Items: [...] }
   // Extract and deduplicate videos for the schema
@@ -39,6 +43,7 @@ export default async function Home() {
 
   return (
     <>
+      {!hasSeenLoading && <LoadingScreen />}
       <BackgroundEffects />
       <Navbar />
       <script
