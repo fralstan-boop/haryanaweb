@@ -100,7 +100,7 @@ export default function CreatorSection() {
           <div className="lg:col-span-2 grid grid-cols-1 gap-5 mt-4 lg:mt-0">
             {achievements.map((item, i) => (
               <motion.div
-                key={item.label}
+                key={i}
                 initial={noMotion ? {} : { opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
