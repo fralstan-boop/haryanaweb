@@ -25,7 +25,7 @@ const CommunitySection = () => {
     <section
       id="community"
       ref={sectionRef}
-      className={`relative w-full overflow-hidden bg-[#0b1120] community-section flex items-center justify-center font-inter ${!isVisible ? 'paused-animations' : ''}`}
+      className={`hidden md:flex relative w-full overflow-hidden bg-[#0b1120] community-section items-center justify-center font-inter ${!isVisible ? 'paused-animations' : ''}`}
       style={{ contentVisibility: 'auto', contain: 'layout paint' }}
     >
       {/* 10. Top Blur Fade for Seamless Hero Transition */}

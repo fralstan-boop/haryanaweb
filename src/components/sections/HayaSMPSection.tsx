@@ -52,7 +52,7 @@ const HayaSMPSection = () => {
     <section
       ref={sectionRef}
       id="hayasmp"
-      className={`relative w-full overflow-hidden flex items-center justify-center font-inter pt-10 pb-4 ${!isVisible ? 'paused-animations' : ''}`}
+      className={`hidden md:flex relative w-full overflow-hidden items-center justify-center font-inter pt-10 pb-4 ${!isVisible ? 'paused-animations' : ''}`}
       style={{
 
         backgroundColor: "#0b1120", // Deep dark base

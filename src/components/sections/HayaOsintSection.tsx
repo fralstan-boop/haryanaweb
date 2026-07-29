@@ -65,7 +65,7 @@ const HayaOsintSection = () => {
     <section 
       ref={ref} 
       id="hayaosint" 
-      className={`hayaosint-scene relative w-full h-[580px] md:h-[740px] flex items-center justify-center overflow-visible bg-[#02060F] ${!isVisible ? 'paused-animations' : ''}`}
+      className={`hidden md:flex hayaosint-scene relative w-full h-[580px] md:h-[740px] items-center justify-center overflow-visible bg-[#02060F] ${!isVisible ? 'paused-animations' : ''}`}
       style={{ contain: 'layout paint' }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

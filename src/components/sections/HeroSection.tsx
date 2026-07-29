@@ -52,7 +52,7 @@ export default function HeroSection() {
       />
 
       {/* ── Balatro WebGL background ── */}
-      {startWebGL && !isMobile && !noMotion && (
+      {startWebGL && !noMotion && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -93,10 +93,10 @@ export default function HeroSection() {
         className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
         style={{ marginTop: "20px" }}
       >
-        {/* Title — Cinzel serif */}
+        {/* Title */}
         <motion.h1
           id="hero-heading"
-          className="font-cinzel text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-bold tracking-[0.06em] leading-[0.95]"
+          className="font-cinzel text-4xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-bold tracking-[0.06em] leading-[0.95]"
           style={{
             background: "linear-gradient(180deg, #ffffff 0%, #f6e4b8 30%, #f6b73c 70%, #c48820 100%)",
             WebkitBackgroundClip: "text",
@@ -126,7 +126,7 @@ export default function HeroSection() {
 
         {/* Subtitle */}
         <motion.p
-          className="mt-6 text-[13px] sm:text-sm tracking-[0.35em] uppercase font-medium"
+          className="mt-6 text-[10px] sm:text-sm tracking-[0.15em] sm:tracking-[0.35em] uppercase font-medium whitespace-nowrap"
           style={{ color: "rgba(246,183,60,0.75)" }}
           initial={fi(0.4)}
           animate={fa}

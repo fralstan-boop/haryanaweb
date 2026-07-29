@@ -21,10 +21,10 @@ export default function Footer() {
       <div className="footer-pattern" />
 
       <div className="footer-content mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 text-center md:text-left">
           {/* Brand */}
-          <div>
-            <div className="flex items-center gap-3 mb-3">
+          <div className="flex flex-col items-center md:items-start">
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/images/hayacorp.png" 
@@ -32,13 +32,13 @@ export default function Footer() {
                 className="footer-brand-stamp"
               />
             </div>
-            <p className="mt-4 text-sm text-[#2a1b10]/80 max-w-xs leading-relaxed">
+            <p className="mt-4 text-sm text-[#2a1b10]/80 max-w-xs leading-relaxed mx-auto md:mx-0">
               {siteConfig.brand.mission}
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#1b140d]/60 mb-4">
               Quick Links
             </h3>
@@ -57,11 +57,11 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#1b140d]/60 mb-4">
               Connect
             </h3>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
