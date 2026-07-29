@@ -13,7 +13,7 @@ import CreatorSection from "@/components/sections/CreatorSection";
 
 export default async function Home() {
   const videoData = await getYouTubeData();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const hasSeenLoading = cookieStore.has("hayanura-loading-seen");
 
   // videoData is an object: { row1Items: [...], row2Items: [...] }
