@@ -141,6 +141,20 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {process.env.NODE_ENV === 'development' && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.addEventListener('unhandledrejection', function(event) {
+                  if (event.reason === undefined) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                });
+              `
+            }}
+          />
+        )}
       </head>
       <body className={`${inter.variable} ${cinzel.variable} ${playfair.variable} ${garamond.variable} font-sans antialiased`}>
         <DesktopGate>

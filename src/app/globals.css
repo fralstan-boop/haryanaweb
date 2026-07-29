@@ -370,7 +370,7 @@ section h2::before {
   z-index: 2;
   overflow: hidden;
   height: 250px;
-  margin-bottom: 0;
+  margin-bottom: -65px;
   transform: translateZ(0);
   will-change: transform;
 }
@@ -482,6 +482,7 @@ section h2::before {
 @media (max-width: 768px) {
   .arch-overlay {
     height: 100px;
+    margin-bottom: 5px;
   }
 
   .services-container {

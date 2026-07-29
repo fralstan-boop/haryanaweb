@@ -8,11 +8,42 @@ import { motion, useReducedMotion, useMotionValue, useMotionTemplate } from "fra
 import { useMobile } from "@/hooks/useMobile";
 import { FaYoutube, FaEye, FaClock, FaDiscord, FaFilm } from "react-icons/fa6";
 
-
 import LiquidChrome from "@/components/ui/LiquidChrome";
 import { MagicContainer, MagicCard } from "@/components/ui/MagicBento";
 import StatCounter from "@/components/ui/StatCounter";
 import { useDiscordStats } from "@/hooks/useDiscordStats";
+
+// Structured data lives outside the component so it never re-serializes on
+// re-render. This is what search crawlers and AI answer engines (AEO/LLMEO)
+// actually parse, it should mirror the visible copy below word for word so
+// there's no mismatch between what a bot reads and what a person reads.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Hayanura",
+  alternateName: "HAYANURA",
+  url: "https://hayanura.in",
+  jobTitle: "Video Editor, Motion Graphics Animator & Geopolitical Content Creator",
+  description:
+    "Hayanura is a solo Indian video editor and motion graphics animator who researches, scripts, and animates every video on his geopolitics and history channel by himself.",
+  knowsAbout: [
+    "Geopolitics",
+    "Military Strategy",
+    "Indian Foreign Policy",
+    "World History",
+    "Motion Graphics",
+    "Video Editing",
+    "Cartography",
+  ],
+  sameAs: [
+    "https://youtube.com/@hayanura",
+    "https://instagram.com/hayanura",
+  ],
+  nationality: {
+    "@type": "Country",
+    name: "India",
+  },
+};
 
 export default function CreatorSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,7 +74,19 @@ export default function CreatorSection() {
     <div
       className="relative group pb-2 overflow-hidden"
       onMouseMove={handleMouseMove}
+      itemScope
+      itemType="https://schema.org/Person"
     >
+      {/* Structured data for search crawlers and AI answer engines. Hidden
+          from view but kept in sync with the visible bio text below. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <meta itemProp="name" content="Hayanura" />
+      <meta itemProp="jobTitle" content="Video Editor & Motion Graphics Animator" />
+      <meta itemProp="url" content="https://hayanura.in" />
+
       {/* Base Global Gradient / Liquid Chrome for Section */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         {!isMobile && (
@@ -65,7 +108,11 @@ export default function CreatorSection() {
         />
       </div>
 
-      <SectionWrapper id="about" title="Who is HAYANURA?" subtitle="The shockingly unsugarcoated story behind the animations.">
+      <SectionWrapper
+        id="about"
+        title="Who is HAYANURA?"
+        subtitle="One editor, one timeline, no ghostwriters. Here's the actual story."
+      >
         <MagicContainer className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start relative z-10">
 
           {/* Text Panels: 3/5 */}
@@ -77,25 +124,37 @@ export default function CreatorSection() {
               {/* Subtle inner card hover layer for depth */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
 
-              <p className="text-[17px] text-text-secondary leading-relaxed font-medium relative z-10">
-                HAYANURA is a solo-operated media channel focused on geopolitics, military strategy, and world history. Reaching over 287,000 subscribers and generating 137 million views across <a href="https://youtube.com/@hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">YouTube</a> and <a href="https://instagram.com/hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">Instagram</a>, the channel breaks down global conflicts using original motion graphics and extensive geographic research.
-              </p>
+              <div
+                className="text-[17px] text-text-secondary leading-relaxed font-medium relative z-10"
+                itemProp="description"
+              >
+                Hayanura started the way most obsessions do: a kid in Bharat messed around with an editing app and couldn't put it down. That habit turned into a full channel built around geopolitics, military strategy, and world history, and it now reaches{" "}
+                <span itemProp="interactionCount">
+                  <StatCounter value={siteConfig.stats.subscribers} />
+                </span>{" "}
+                subscribers with{" "}
+                <StatCounter value={siteConfig.stats.totalViews} />{" "}
+                views combined across{" "}
+                <a href="https://youtube.com/@hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">YouTube</a>{" "}
+                and{" "}
+                <a href="https://instagram.com/hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">Instagram</a>. No writers' room, no outsourced animators, just one person breaking down global conflicts with original motion graphics and maps drawn from scratch.
+              </div>
             </MagicCard>
 
             <div className="flex flex-col gap-6">
               <MagicCard enableTilt={true} enableStars={true} className="p-6 sm:p-8 rounded-2xl bg-[#091020]/60 backdrop-blur-md border border-white/5 relative group/card shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#101C35]/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">Research & Animation</h4>
+                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">Research Before a Single Frame Moves</h4>
                 <p className="text-[15px] sm:text-[16px] text-text-secondary/80 leading-relaxed relative z-10">
-                  Every video is researched, scripted, and animated entirely by one creator. By analyzing historical military deployments, border disputes, and trade routes, we translate dense geopolitical reports into clear visual formats.
+                  Every video gets researched, scripted, and animated by the same person, start to finish. That means digging through troop movements, border disputes, and trade routes before touching the timeline, because a gorgeous animation built on a wrong border is still wrong. The visuals only get made once the facts hold up.
                 </p>
               </MagicCard>
 
               <MagicCard enableTilt={true} enableStars={true} className="p-6 sm:p-8 rounded-2xl bg-[#091020]/60 backdrop-blur-md border border-white/5 relative group/card shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#101C35]/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
-                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">Core Focus</h4>
+                <h4 className="text-white font-cinzel text-lg mb-3 tracking-wider text-saffron-300">What Actually Gets Covered</h4>
                 <p className="text-[15px] sm:text-[16px] text-text-secondary/80 leading-relaxed relative z-10">
-                  The content focuses primarily on Indian foreign policy, historical empires, and modern flashpoints like the Indo-Pacific strategy. The channel prioritizes factual accuracy and spatial mapping to help audiences understand global power structures.
+                  Most episodes circle back to Indian foreign policy: how New Delhi is playing the Indo-Pacific, what old empires can tell us about today's flashpoints, and the border stories most news channels flatten into a thirty-second clip. Accuracy comes before speed, even when that costs an extra week of edits before a video is ready to publish.
                 </p>
               </MagicCard>
             </div>
@@ -137,7 +196,7 @@ export default function CreatorSection() {
                       boxShadow: `0 0 15px ${item.color}10 inset`
                     }}
                   >
-                    <item.icon className="text-xl sm:text-2xl drop-shadow-md" style={{ color: item.color }} />
+                    <item.icon className="text-xl sm:text-2xl drop-shadow-md" style={{ color: item.color }} aria-hidden="true" />
                   </div>
                   <div className="relative z-10 flex-1 overflow-hidden">
                     <div className="text-xl sm:text-3xl font-bold text-white tracking-tight drop-shadow-sm truncate">

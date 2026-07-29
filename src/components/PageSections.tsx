@@ -29,7 +29,6 @@ const ContactSection = dynamic(() => import("@/components/sections/ContactSectio
   ssr: false, 
   loading: () => <div className="h-[600px]" /> 
 });
-const SectionDivider = dynamic(() => import("@/components/SectionDivider"), { ssr: false });
 
 interface PageSectionsProps {
   initialVideoData?: {
@@ -41,7 +40,6 @@ interface PageSectionsProps {
 export default function PageSections({ initialVideoData }: PageSectionsProps) {
   return (
     <>
-      <LazySection><SectionDivider index={0} /></LazySection>
       <LazySection><FeaturedWorkSection videoData={initialVideoData} /></LazySection>
       <LazySection><HayaOsintSection /></LazySection>
       <LazySection><CommunitySection /></LazySection>

@@ -20,6 +20,20 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setIsOpen(false);
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        setTimeout(() => {
+          elem.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    }
+  };
+
   // Close menu on navigation
   useEffect(() => {
     const handleHashChange = () => setIsOpen(false);
@@ -107,7 +121,7 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
                           key={link.label}
                           href={link.href}
                           className={`group font-inter text-[15px] font-medium text-slate-300 hover:text-white items-center transition-all duration-300 ${link.hideOnMobile ? 'hidden md:flex' : 'flex'}`}
-                          onClick={() => setIsOpen(false)}
+                          onClick={(e) => handleLinkClick(e, link.href)}
                           {...(link.href.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         >
                           <span className="flex items-center justify-center text-[15px] w-9 h-9 rounded-full bg-white/5 text-amber-500 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-orange-500 group-hover:text-navy-950 mr-4 transition-all duration-300 shadow-sm">

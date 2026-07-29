@@ -152,6 +152,8 @@ const FeaturedWorkSection = ({
         id="work"
         title="Featured Animation Marvels"
         subtitle="Cinematic animations exploring power, conflict, and the stories that shaped civilizations."
+        hideDivider={true}
+        className="!pt-4 md:!pt-8"
       >
         <motion.div variants={noMotion ? {} : staggerItem} className="relative w-full overflow-hidden mt-2">
           {/* Marquee Stripes Wrapper with CSS Mask for perfect edge fading */}

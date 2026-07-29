@@ -103,7 +103,7 @@ export default function HeroSection() {
           {/* Deep Ambient Shadow (Perfect Letter-Hugging Halo) */}
           <h1
             aria-hidden="true"
-            className="absolute inset-0 font-garamond text-4xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-semibold uppercase tracking-[0.08em] leading-[0.95] text-black/60 blur-md select-none"
+            className="absolute inset-0 font-garamond text-[13.5vw] leading-[0.9] sm:text-[4rem] md:text-8xl lg:text-[6.5rem] font-semibold uppercase tracking-[0.02em] sm:tracking-[0.05em] md:tracking-[0.08em] text-black/60 blur-md select-none whitespace-nowrap"
             style={{
               WebkitTextStroke: "8px rgba(0,0,0,0.4)",
             }}
@@ -114,7 +114,7 @@ export default function HeroSection() {
           {/* Main Metallic Text Layer */}
           <h1
             id="hero-heading"
-            className="relative font-garamond text-4xl sm:text-7xl md:text-8xl lg:text-[6.5rem] font-semibold uppercase tracking-[0.08em] leading-[0.95]"
+            className="relative font-garamond text-[13.5vw] leading-[0.9] sm:text-[4rem] md:text-8xl lg:text-[6.5rem] font-semibold uppercase tracking-[0.02em] sm:tracking-[0.05em] md:tracking-[0.08em] whitespace-nowrap"
             style={{
               background: "linear-gradient(180deg, #FFFFFF 0%, #FDE68A 25%, #D4AF37 60%, #996515 100%)",
               WebkitBackgroundClip: "text",
@@ -128,7 +128,7 @@ export default function HeroSection() {
 
         {/* Thin gold & platinum line under title */}
         <motion.div
-          className="mx-auto mt-5 h-px max-w-[280px]"
+          className="mx-auto mt-4 sm:mt-5 h-px w-[80%] max-w-[280px]"
           style={{
             background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), rgba(246,183,60,0.9), rgba(255,255,255,0.7), transparent)",
             filter: "drop-shadow(0 0 10px rgba(246,183,60,0.4))",
@@ -140,8 +140,8 @@ export default function HeroSection() {
         />
 
         {/* Subtitle — Luminous white with gold accent dots */}
-        <motion.p
-          className="mt-6 text-[10px] sm:text-sm tracking-[0.15em] sm:tracking-[0.35em] uppercase font-medium whitespace-nowrap text-white"
+        <motion.div
+          className="mt-6 flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3 gap-y-1 text-[10px] sm:text-sm tracking-[0.15em] sm:tracking-[0.35em] uppercase font-medium text-white max-w-[95%]"
           style={{ 
             textShadow: "0 2px 10px rgba(0,0,0,0.9), 0 0 16px rgba(246,183,60,0.3)",
           }}
@@ -149,40 +149,44 @@ export default function HeroSection() {
           animate={fa}
           transition={ft(0.4)}
         >
-          Animation &nbsp;<span className="text-[#f6b73c]">•</span>&nbsp; Awareness &nbsp;<span className="text-[#f6b73c]">•</span>&nbsp; Geopolitics
-        </motion.p>
+          <span>Animation</span>
+          <span className="text-[#f6b73c] text-[8px] sm:text-xs">•</span>
+          <span>Awareness</span>
+          <span className="text-[#f6b73c] text-[8px] sm:text-xs">•</span>
+          <span>Geopolitics</span>
+        </motion.div>
 
         {/* Stats with vertical divider */}
         <motion.div
-          className="mt-10 flex items-center justify-center gap-0"
+          className="mt-10 sm:mt-12 flex items-center justify-center w-full max-w-md mx-auto"
           initial={fi(0.6)}
           animate={fa}
           transition={ft(0.6)}
         >
           {/* Subscribers */}
-          <div className="px-4 sm:px-8 md:px-12 text-center overflow-hidden">
-            <div className="text-2xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight truncate">
+          <div className="flex-1 px-1 sm:px-4 text-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
               <StatCounter value={siteConfig.stats.subscribersShort} />
             </div>
-            <div className="mt-1 text-[8px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.25em] font-medium truncate" style={{ color: "rgba(230,225,215,0.45)" }}>
+            <div className="mt-1 text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.25em] font-medium" style={{ color: "rgba(230,225,215,0.45)" }}>
               Subscribers
             </div>
           </div>
 
           {/* Vertical divider */}
           <div
-            className="w-px h-14 sm:h-16 flex-shrink-0"
+            className="w-px h-12 sm:h-16 flex-shrink-0 mx-2 sm:mx-6"
             style={{
               background: "linear-gradient(180deg, transparent, rgba(246,183,60,0.35), transparent)",
             }}
           />
 
           {/* Total Views */}
-          <div className="px-4 sm:px-8 md:px-12 text-center overflow-hidden">
-            <div className="text-2xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight truncate">
+          <div className="flex-1 px-1 sm:px-4 text-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
               <StatCounter value={siteConfig.stats.totalViewsShort} />
             </div>
-            <div className="mt-1 text-[8px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.25em] font-medium truncate" style={{ color: "rgba(230,225,215,0.45)" }}>
+            <div className="mt-1 text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.25em] font-medium" style={{ color: "rgba(230,225,215,0.45)" }}>
               Total Views
             </div>
           </div>
@@ -190,16 +194,16 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="mt-12 flex flex-wrap items-center justify-center gap-4"
+          className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-[280px] sm:max-w-none mx-auto"
           initial={fi(0.7)}
           animate={fa}
           transition={ft(0.7)}
         >
-          <GlowButton href={siteConfig.links.youtube} external variant="primary">
-            <FaYoutube className="text-lg" />
+          <GlowButton href={siteConfig.links.youtube} external variant="primary" className="w-full sm:w-auto flex justify-center">
+            <FaYoutube className="text-lg mr-2" />
             Watch Channel
           </GlowButton>
-          <GlowButton href="#work" variant="secondary">
+          <GlowButton href="#work" variant="secondary" className="w-full sm:w-auto flex justify-center">
             Explore the Work
           </GlowButton>
         </motion.div>
