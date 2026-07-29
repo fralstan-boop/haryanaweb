@@ -78,7 +78,7 @@ export default function CreatorSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
 
               <p className="text-[17px] text-text-secondary leading-relaxed font-medium relative z-10">
-                HAYANURA is a solo-operated media channel focused on geopolitics, military strategy, and world history. Reaching over 287,000 subscribers and generating 115 million views across <a href="https://youtube.com/@hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">YouTube</a> and <a href="https://instagram.com/hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">Instagram</a>, the channel breaks down global conflicts using original motion graphics and extensive geographic research.
+                HAYANURA is a solo-operated media channel focused on geopolitics, military strategy, and world history. Reaching over 287,000 subscribers and generating 137 million views across <a href="https://youtube.com/@hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">YouTube</a> and <a href="https://instagram.com/hayanura" target="_blank" rel="noopener noreferrer" className="text-saffron-400 hover:underline">Instagram</a>, the channel breaks down global conflicts using original motion graphics and extensive geographic research.
               </p>
             </MagicCard>
 
@@ -115,7 +115,7 @@ export default function CreatorSection() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                  <MagicCard
+                <MagicCard
                   enableTilt={true}
                   enableStars={false}
                   glowColor={item.rgb}

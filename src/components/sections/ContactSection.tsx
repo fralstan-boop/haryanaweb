@@ -274,22 +274,25 @@ const ContactSection = () => {
             <button
               type="submit"
               disabled={status === "sending" || status === "cooldown"}
-              className={`w-full inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-400 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] ${
+              className={`w-full relative overflow-hidden group inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] ${
                 status === "error" 
                   ? "bg-red-500/80 text-white shadow-[0_0_20px_rgba(239,68,68,0.3)]" 
-                  : "bg-gradient-to-r from-saffron-500 to-saffron-600 text-navy-900 hover:from-saffron-400 hover:to-saffron-500 hover:shadow-[0_0_32px_rgba(255,140,26,0.4)]"
+                  : "bg-gradient-to-r from-saffron-500 to-saffron-600 text-navy-900 shadow-[0_10px_30px_rgba(255,140,26,0.3)] hover:shadow-[0_15px_40px_rgba(255,140,26,0.5)]"
               }`}
             >
-              <FaPaperPlane />
-              {status === "sending"
-                ? "Sending..."
-                : status === "sent"
-                  ? "Message Sent!"
-                  : status === "error"
-                    ? "Failed to Send"
-                    : status === "cooldown"
-                      ? "Please wait..."
-                      : "Send Message"}
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out pointer-events-none" />
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                <FaPaperPlane />
+                {status === "sending"
+                  ? "Sending..."
+                  : status === "sent"
+                    ? "Message Sent!"
+                    : status === "error"
+                      ? "Failed to Send"
+                      : status === "cooldown"
+                        ? "Please wait..."
+                        : "Send Message"}
+              </span>
             </button>
           </form>
         </motion.div>

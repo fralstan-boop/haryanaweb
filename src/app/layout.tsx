@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cinzel } from "next/font/google";
+import { Inter, Cinzel, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { siteConfig } from "@/lib/site.config";
 import "./globals.css";
@@ -16,6 +16,20 @@ const cinzel = Cinzel({
   variable: "--font-cinzel",
   display: "swap",
   weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+  weight: ["400", "600", "700", "800", "900"],
+});
+
+const garamond = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-garamond",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Hayanura",
     images: [
       {
-        url: "https://hayanura.in/og-image.jpg?v=4",
+        url: "https://hayanura.in/og-image.png?v=5",
         width: 1200,
         height: 630,
         alt: "HAYANURA | Geopolitics, History & Strategic Analysis"
@@ -53,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "HAYANURA | Geopolitics, History & Strategic Analysis",
     description: "Cinematic geopolitical storytelling, defence analysis, and historical insights.",
-    images: ["https://hayanura.in/og-image.jpg?v=4"],
+    images: ["https://hayanura.in/og-image.png?v=5"],
   },
   icons: {
     icon: "/favicon.png",
@@ -128,7 +142,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${cinzel.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${cinzel.variable} ${playfair.variable} ${garamond.variable} font-sans antialiased`}>
         <DesktopGate>
           {children}
         </DesktopGate>

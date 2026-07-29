@@ -21,13 +21,13 @@ export default function GlowButton({
   const prefersReducedMotion = useReducedMotion();
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-md font-medium text-sm tracking-wide transition-all duration-300 focus-visible:outline-2 focus-visible:outline-saffron-500 focus-visible:outline-offset-2 relative overflow-hidden";
+    "inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-md font-medium text-sm tracking-wide transition-all duration-300 focus-visible:outline-2 focus-visible:outline-saffron-500 focus-visible:outline-offset-2 relative overflow-hidden group cursor-pointer select-none";
 
   const variants = {
     primary:
-      "text-navy-900 font-semibold hover:shadow-[0_0_28px_rgba(246,183,60,0.3)] active:scale-[0.97]",
+      "text-navy-900 font-semibold shadow-[0_10px_30px_rgba(246,183,60,0.25)] hover:shadow-[0_15px_40px_rgba(246,183,60,0.45)]",
     secondary:
-      "text-gold-400 hover:bg-gold-400/8 hover:shadow-[0_0_20px_rgba(246,183,60,0.08)] active:scale-[0.97]",
+      "text-gold-400 border border-[rgba(246,183,60,0.25)] hover:border-[rgba(246,183,60,0.5)] hover:shadow-[0_10px_30px_rgba(246,183,60,0.15)]",
   };
 
   const primaryStyle =
@@ -37,7 +37,6 @@ export default function GlowButton({
           border: "1px solid rgba(246,183,60,0.5)",
         }
       : {
-          border: "1px solid rgba(246,183,60,0.25)",
           background: "transparent",
         };
 
@@ -45,10 +44,14 @@ export default function GlowButton({
     <motion.span
       className={`${baseStyles} ${variants[variant]} ${className}`}
       style={primaryStyle}
-      whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
-      whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
+      whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -2 }}
+      whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
     >
-      {children}
+      {/* HayaSMP-style slide-up fill overlay */}
+      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out pointer-events-none" />
+      <span className="relative z-10 flex items-center justify-center gap-2">
+        {children}
+      </span>
     </motion.span>
   );
 

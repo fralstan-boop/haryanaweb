@@ -7,12 +7,14 @@ export const siteConfig = {
     description:
       "HAYANURA creates animated geopolitical and historical narratives focused on global power struggles, military developments, and historical transformations, primarily for an Indian audience.",
     seoDescription:
-      "HAYANURA | Animated geopolitical and historical storytelling for India. 287K+ subscribers, 115M+ views. Explore world history, defence updates, and modern Indian narratives.",
+      "HAYANURA | Animated geopolitical and historical storytelling for India. 287K+ subscribers, 137M+ views. Explore world history, defence updates, and modern Indian narratives.",
   },
 
   stats: {
     subscribers: "287,543",
-    totalViews: "115,417,961",
+    subscribersShort: "287K+",
+    totalViews: "137,417,961",
+    totalViewsShort: "137M+",
     discordMembers: "2928+",
   },
 

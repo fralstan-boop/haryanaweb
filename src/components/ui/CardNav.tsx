@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import "./CardNav.css";
 
 interface CardNavProps {
   navItems: {
     title: string;
-    links: { label: string; href: string; icon?: React.ReactNode }[];
+    links: { label: string; href: string; icon?: React.ReactNode; hideOnMobile?: boolean }[];
     background: string;
   }[];
   scrolled: boolean;
@@ -47,7 +48,7 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
           </div>
 
           {/* Right: Brand and Logo */}
-          <a
+          <Link
             href="#hero"
             className="logo-container"
             onClick={() => setIsOpen(false)}
@@ -65,7 +66,7 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
                 className="rounded-sm object-contain"
               />
             </div>
-          </a>
+          </Link>
         </div>
 
         {/* Expanded Navigation Cards Area */}
@@ -97,16 +98,17 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
                     className="flex-1 rounded-[18px] p-7 md:p-9 flex flex-col border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
                     style={{ background: item.background }}
                   >
-                    <h3 className="font-cinzel font-bold text-xl md:text-2xl text-amber-500 mb-6 tracking-wider drop-shadow-md">
+                    <h3 className="font-sans font-medium uppercase text-sm md:text-base text-amber-500 mb-6 tracking-[0.15em] drop-shadow-md">
                       {item.title}
                     </h3>
                     <div className="flex flex-col gap-4">
                       {item.links.map((link) => (
-                        <a
+                        <Link
                           key={link.label}
                           href={link.href}
-                          className="group font-inter text-[15px] font-medium text-slate-300 hover:text-white flex items-center transition-all duration-300"
+                          className={`group font-inter text-[15px] font-medium text-slate-300 hover:text-white items-center transition-all duration-300 ${link.hideOnMobile ? 'hidden md:flex' : 'flex'}`}
                           onClick={() => setIsOpen(false)}
+                          {...(link.href.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         >
                           <span className="flex items-center justify-center text-[15px] w-9 h-9 rounded-full bg-white/5 text-amber-500 group-hover:bg-gradient-to-br group-hover:from-amber-400 group-hover:to-orange-500 group-hover:text-navy-950 mr-4 transition-all duration-300 shadow-sm">
                             {link.icon ? link.icon : "↗"}
@@ -114,7 +116,7 @@ export default function CardNav({ navItems, scrolled }: CardNavProps) {
                           <span className="group-hover:translate-x-1.5 transition-transform duration-300 tracking-wide">
                             {link.label}
                           </span>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </motion.div>

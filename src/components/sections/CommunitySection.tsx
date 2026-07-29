@@ -28,8 +28,8 @@ const CommunitySection = () => {
       className={`hidden md:flex relative w-full overflow-hidden bg-[#0b1120] community-section items-center justify-center font-inter ${!isVisible ? 'paused-animations' : ''}`}
       style={{ contentVisibility: 'auto', contain: 'layout paint' }}
     >
-      {/* 10. Top Blur Fade for Seamless Hero Transition */}
-      <div className="absolute top-[0px] left-0 right-0 h-[140px] bg-gradient-to-b from-[#02060F] to-transparent z-[3] pointer-events-none" />
+      {/* 10. Top Blur Fade for Seamless Hero Transition (Removed per request) */}
+      {/* <div className="absolute top-[0px] left-0 right-0 h-[140px] bg-gradient-to-b from-[#02060F] to-transparent z-[3] pointer-events-none" /> */}
 
       {/* Bottom Blur Fade for Seamless SMP Transition */}
       <div className="absolute bottom-[0px] left-0 right-0 h-[160px] bg-gradient-to-t from-[#0b1120] to-transparent z-[3] pointer-events-none" />

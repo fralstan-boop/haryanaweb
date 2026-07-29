@@ -141,6 +141,7 @@ const FeaturedWorkSection = ({
           hoverDampness={0.25}
           rayCount={0}
           mixBlendMode="lighten"
+          noiseAmount={0}
           colors={["#ff007a", "#4d3dff", "#ffffff"]}
         />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#02060F_25%,transparent_65%)] pointer-events-none" />

@@ -31,7 +31,7 @@ export default function Navbar() {
       links: [
         { label: "Home", href: "#hero", icon: <FaHome /> },
         { label: "About", href: "#about", icon: <FaInfoCircle /> },
-        { label: "Community", href: "#community", icon: <FaUsers /> },
+        { label: "Community", href: "#community", icon: <FaUsers />, hideOnMobile: true },
       ]
     },
     {
@@ -40,7 +40,7 @@ export default function Navbar() {
       links: [
         { label: "Work", href: "#work", icon: <FaBriefcase /> },
         { label: "HayaOSINT", href: "#hayaosint", icon: <FaSearch /> },
-        { label: "HayaSMP", href: "#hayasmp", icon: <FaCubes /> },
+        { label: "HayaSMP", href: "#hayasmp", icon: <FaCubes />, hideOnMobile: true },
         { label: "Services", href: "#services", icon: <FaHandshake /> },
       ]
     },

@@ -216,6 +216,7 @@ interface PrismaticBurstProps {
   hoverDampness?: number;
   rayCount?: number;
   mixBlendMode?: string;
+  noiseAmount?: number;
 }
 
 const PrismaticBurst = ({
@@ -228,7 +229,8 @@ const PrismaticBurst = ({
   offset = { x: 0, y: 0 },
   hoverDampness = 0,
   rayCount,
-  mixBlendMode = 'lighten'
+  mixBlendMode = 'lighten',
+  noiseAmount = 0.8
 }: PrismaticBurstProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const programRef = useRef<any>(null);
@@ -465,6 +467,7 @@ const PrismaticBurst = ({
 
     program.uniforms.uIntensity.value = intensity ?? 1;
     program.uniforms.uSpeed.value = speed ?? 1;
+    program.uniforms.uNoiseAmount.value = typeof noiseAmount === 'number' ? noiseAmount : 0.8;
 
     const animTypeMap: Record<string, number> = {
       rotate: 0,
@@ -509,7 +512,7 @@ const PrismaticBurst = ({
       count = 0;
     }
     program.uniforms.uColorCount.value = count;
-  }, [intensity, speed, animationType, colors, distort, offset, rayCount]);
+  }, [intensity, speed, animationType, colors, distort, offset, rayCount, noiseAmount]);
 
   return <div className="prismatic-burst-container" ref={containerRef} />;
 };
