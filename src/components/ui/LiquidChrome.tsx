@@ -108,6 +108,8 @@ export const LiquidChrome = ({
     const mesh = new Mesh(gl, { geometry, program });
 
     const dpr = 0.5; // Lower resolution for extreme performance
+    
+    let cachedRect: { left: number; top: number; width: number; height: number } | null = null;
 
     function resize() {
       renderer.setSize(container.offsetWidth * dpr, container.offsetHeight * dpr);
@@ -117,25 +119,34 @@ export const LiquidChrome = ({
       resUniform[0] = gl.canvas.width;
       resUniform[1] = gl.canvas.height;
       resUniform[2] = gl.canvas.width / gl.canvas.height;
+      
+      const rect = container.getBoundingClientRect();
+      cachedRect = {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height
+      };
     }
     window.addEventListener('resize', resize, { passive: true });
-    resize();
+    // setTimeout to ensure layout is settled
+    setTimeout(resize, 100);
 
     function handleMouseMove(event: MouseEvent) {
-      const rect = container.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = 1 - (event.clientY - rect.top) / rect.height;
+      if (!cachedRect) return;
+      const x = (event.pageX - cachedRect.left) / cachedRect.width;
+      const y = 1 - (event.pageY - cachedRect.top) / cachedRect.height;
       const mouseUniform = program.uniforms.uMouse.value;
       mouseUniform[0] = x;
       mouseUniform[1] = y;
     }
 
     function handleTouchMove(event: TouchEvent) {
+      if (!cachedRect) return;
       if (event.touches.length > 0) {
         const touch = event.touches[0];
-        const rect = container.getBoundingClientRect();
-        const x = (touch.clientX - rect.left) / rect.width;
-        const y = 1 - (touch.clientY - rect.top) / rect.height;
+        const x = (touch.pageX - cachedRect.left) / cachedRect.width;
+        const y = 1 - (touch.pageY - cachedRect.top) / cachedRect.height;
         const mouseUniform = program.uniforms.uMouse.value;
         mouseUniform[0] = x;
         mouseUniform[1] = y;

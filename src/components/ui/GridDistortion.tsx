@@ -121,10 +121,19 @@ const GridDistortion = ({
     planeRef.current = plane;
     scene.add(plane);
 
+    let cachedRect: { left: number; top: number; width: number; height: number } | null = null;
+
     const handleResize = () => {
       if (!container || !renderer || !camera) return;
 
       const rect = container.getBoundingClientRect();
+      cachedRect = {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height
+      };
+      
       const width = rect.width;
       const height = rect.height;
 
@@ -174,12 +183,11 @@ const GridDistortion = ({
     const parallaxTarget = { x: 0, y: 0 };
     
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isVisibleRef.current) return;
+      if (!isVisibleRef.current || !cachedRect) return;
       
-      const rect = container.getBoundingClientRect();
       // Normalized mouse position from -1 to 1
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      const x = ((e.pageX - cachedRect.left) / cachedRect.width) * 2 - 1;
+      const y = -((e.pageY - cachedRect.top) / cachedRect.height) * 2 + 1;
       
       // Target camera position (moves opposite to mouse for depth perception)
       parallaxTarget.x = x * 0.04;

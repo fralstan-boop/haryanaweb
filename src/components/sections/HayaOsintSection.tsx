@@ -111,7 +111,7 @@ const HayaOsintSection = () => {
       />
 
       <motion.div
-        className="absolute top-1/2 -left-[15vw] w-[70vw] -translate-y-1/2 max-w-none pointer-events-none select-none origin-center z-[10] layer"
+        className="hidden md:block absolute top-1/2 -left-[15vw] w-[70vw] -translate-y-1/2 max-w-none pointer-events-none select-none origin-center z-[10] layer"
         style={{ x: soldierMouseX }}
       >
         <motion.div className="w-full h-full" style={{ y: soldierMouseY }}>
@@ -197,7 +197,7 @@ const HayaOsintSection = () => {
       </div>
 
       <motion.div
-        className="absolute top-1/2 -right-[10vw] w-[70vw] -translate-y-1/2 max-w-none pointer-events-none select-none origin-center z-[10] layer"
+        className="hidden md:block absolute top-1/2 -right-[10vw] w-[70vw] -translate-y-1/2 max-w-none pointer-events-none select-none origin-center z-[10] layer"
         style={{ x: soldierMouseX }}
       >
         <motion.div className="w-full h-full" style={{ y: soldierMouseY }}>

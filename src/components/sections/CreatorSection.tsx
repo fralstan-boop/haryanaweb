@@ -1,10 +1,11 @@
 "use client";
 
-import { MouseEvent } from "react";
+import { MouseEvent, useRef, useState, useEffect } from "react";
 import SectionWrapper from "@/components/SectionWrapper";
 import { staggerItem } from "@/components/SectionWrapper";
 import { siteConfig } from "@/lib/site.config";
 import { motion, useReducedMotion, useMotionValue, useMotionTemplate } from "framer-motion";
+import { useMobile } from "@/hooks/useMobile";
 import { FaYoutube, FaEye, FaClock, FaDiscord, FaFilm } from "react-icons/fa6";
 
 
@@ -14,6 +15,8 @@ import StatCounter from "@/components/ui/StatCounter";
 import { useDiscordStats } from "@/hooks/useDiscordStats";
 
 export default function CreatorSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
   const prefersReducedMotion = useReducedMotion();
   const noMotion = !!prefersReducedMotion;
   const discordStats = useDiscordStats();
@@ -43,13 +46,15 @@ export default function CreatorSection() {
     >
       {/* Base Global Gradient / Liquid Chrome for Section */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <LiquidChrome
-          baseColor={[0.03, 0.05, 0.1]}
-          speed={0.8}
-          amplitude={0.4}
-          interactive={!noMotion}
-          style={{ opacity: 0.6 }} // Drop opacity slightly so text remains fully legible
-        />
+        {!isMobile && (
+          <LiquidChrome
+            baseColor={[0.03, 0.05, 0.1]}
+            speed={0.8}
+            amplitude={0.4}
+            interactive={!noMotion}
+            style={{ opacity: 0.6 }} // Drop opacity slightly so text remains fully legible
+          />
+        )}
 
         {/* Cinematic gradient overlay to darken edges and blend chrome into the void */}
         <div
@@ -110,11 +115,11 @@ export default function CreatorSection() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                <MagicCard
+                  <MagicCard
                   enableTilt={true}
                   enableStars={false}
                   glowColor={item.rgb}
-                  className="p-6 sm:p-8 rounded-2xl bg-[#091020]/80 backdrop-blur-xl border border-white/5 flex items-center gap-6 shadow-2xl relative group/stat"
+                  className="p-4 sm:p-6 lg:p-8 rounded-2xl bg-[#091020]/80 backdrop-blur-xl border border-white/5 flex items-center gap-4 sm:gap-6 shadow-2xl relative group/stat"
                 >
                   {/* Micro hover gradient passing through the stat card */}
                   <div
@@ -125,20 +130,20 @@ export default function CreatorSection() {
                   />
 
                   <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover/stat:scale-110 group-hover/stat:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover/stat:scale-110 group-hover/stat:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                     style={{
                       background: `${item.color}15`,
                       border: `1px solid ${item.color}30`,
                       boxShadow: `0 0 15px ${item.color}10 inset`
                     }}
                   >
-                    <item.icon className="text-2xl drop-shadow-md" style={{ color: item.color }} />
+                    <item.icon className="text-xl sm:text-2xl drop-shadow-md" style={{ color: item.color }} />
                   </div>
-                  <div className="relative z-10 flex-1">
-                    <div className="text-3xl font-bold text-white tracking-tight drop-shadow-sm">
+                  <div className="relative z-10 flex-1 overflow-hidden">
+                    <div className="text-xl sm:text-3xl font-bold text-white tracking-tight drop-shadow-sm truncate">
                       <StatCounter value={item.value} />
                     </div>
-                    <div className="text-[11px] sm:text-xs mt-1 uppercase tracking-[0.25em] text-text-muted font-medium">
+                    <div className="text-[9px] sm:text-[11px] lg:text-xs mt-1 uppercase tracking-[0.15em] sm:tracking-[0.25em] text-text-muted font-medium truncate">
                       {item.label}
                     </div>
                   </div>

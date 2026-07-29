@@ -32,10 +32,9 @@ const calculateSpotlightValues = (radius: number) => ({
   fadeDistance: radius * 0.75
 });
 
-const updateCardGlowProperties = (card: HTMLElement, mouseX: number, mouseY: number, glow: number, radius: number) => {
-  const rect = card.getBoundingClientRect();
-  const relativeX = ((mouseX - rect.left) / rect.width) * 100;
-  const relativeY = ((mouseY - rect.top) / rect.height) * 100;
+const updateCardGlowProperties = (card: HTMLElement, mouseX: number, mouseY: number, glow: number, radius: number, cachedLeft: number, cachedTop: number, cachedWidth: number, cachedHeight: number) => {
+  const relativeX = ((mouseX - cachedLeft) / cachedWidth) * 100;
+  const relativeY = ((mouseY - cachedTop) / cachedHeight) * 100;
 
   card.style.setProperty('--glow-x', `${relativeX}%`);
   card.style.setProperty('--glow-y', `${relativeY}%`);
@@ -107,20 +106,54 @@ const GlobalSpotlight = ({
     if (gridRef.current) observer.observe(gridRef.current);
 
     let rafId: number;
+    let sectionCache: {left: number, right: number, top: number, bottom: number} | null = null;
+    let cardCache = new Map<Element, {left: number, top: number, width: number, height: number, centerX: number, centerY: number}>();
+
+    const updateCache = () => {
+      if (!gridRef.current) return;
+      const section = gridRef.current.closest('.bento-section');
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        sectionCache = {
+          left: rect.left + window.scrollX,
+          right: rect.right + window.scrollX,
+          top: rect.top + window.scrollY,
+          bottom: rect.bottom + window.scrollY,
+        };
+      }
+      
+      const cards = gridRef.current.querySelectorAll('.magic-bento-card');
+      const map = new Map();
+      cards.forEach((card: any) => {
+        const rect = card.getBoundingClientRect();
+        map.set(card, {
+          left: rect.left + window.scrollX,
+          top: rect.top + window.scrollY,
+          width: rect.width,
+          height: rect.height,
+          centerX: rect.left + window.scrollX + rect.width / 2,
+          centerY: rect.top + window.scrollY + rect.height / 2
+        });
+      });
+      cardCache = map;
+    };
+
+    // Initial cache and resize listener
+    setTimeout(updateCache, 100);
+    window.addEventListener('resize', updateCache, { passive: true });
 
     const handleMouseMove = (e: MouseEvent) => {
       // Throttle mouse calculations to requestAnimationFrame to prevent scroll lag
       if (rafId) cancelAnimationFrame(rafId);
 
       rafId = requestAnimationFrame(() => {
-        if (!isSectionVisible || !spotlightRef.current || !gridRef.current) return;
+        if (!isSectionVisible || !spotlightRef.current || !gridRef.current || !sectionCache) return;
 
-        const section = gridRef.current.closest('.bento-section');
-        const rect = section?.getBoundingClientRect();
+        const { left, right, top, bottom } = sectionCache;
         const mouseInside =
-          rect && e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+          e.pageX >= left && e.pageX <= right && e.pageY >= top && e.pageY <= bottom;
 
-        isInsideSection.current = mouseInside || false;
+        isInsideSection.current = mouseInside;
         const cards = gridRef.current.querySelectorAll('.magic-bento-card');
 
         if (!mouseInside) {
@@ -139,12 +172,11 @@ const GlobalSpotlight = ({
         let minDistance = Infinity;
 
         cards.forEach((card: any) => {
-          const cardElement = card;
-          const cardRect = cardElement.getBoundingClientRect();
-          const centerX = cardRect.left + cardRect.width / 2;
-          const centerY = cardRect.top + cardRect.height / 2;
+          const cache = cardCache.get(card);
+          if (!cache) return;
+          
           const distance =
-            Math.hypot(e.clientX - centerX, e.clientY - centerY) - Math.max(cardRect.width, cardRect.height) / 2;
+            Math.hypot(e.pageX - cache.centerX, e.pageY - cache.centerY) - Math.max(cache.width, cache.height) / 2;
           const effectiveDistance = Math.max(0, distance);
 
           minDistance = Math.min(minDistance, effectiveDistance);
@@ -156,11 +188,11 @@ const GlobalSpotlight = ({
             glowIntensity = (fadeDistance - effectiveDistance) / (fadeDistance - proximity);
           }
 
-          updateCardGlowProperties(cardElement, e.clientX, e.clientY, glowIntensity, spotlightRadius);
+          updateCardGlowProperties(card, e.pageX, e.pageY, glowIntensity, spotlightRadius, cache.left, cache.top, cache.width, cache.height);
         });
 
         gsap.to(spotlightRef.current, {
-          left: e.clientX,
+          left: e.clientX, // Keep clientX/Y for fixed spotlight element
           top: e.clientY,
           duration: 0.1,
           ease: 'power2.out'
@@ -200,6 +232,7 @@ const GlobalSpotlight = ({
 
     return () => {
       observer.disconnect();
+      window.removeEventListener('resize', updateCache);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       spotlightRef.current?.parentNode?.removeChild(spotlightRef.current);

@@ -83,7 +83,7 @@ const CommunitySection = () => {
       <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_20%_30%,rgba(99,102,241,0.35),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(34,197,94,0.25),transparent_45%),radial-gradient(circle_at_50%_80%,rgba(139,92,246,0.2),transparent_50%)] mix-blend-screen pointer-events-none" />
 
       {/* MAIN TWO-COLUMN GRID */}
-      <div className="relative z-[4] w-full max-w-[1300px] mx-auto px-6 pt-4 md:pt-8 pb-[80px] md:pb-[120px] grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="relative z-[4] w-full max-w-[1300px] mx-auto px-6 pt-24 md:pt-32 lg:pt-40 pb-[80px] md:pb-[120px] grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
         {/* LEFT COLUMN: Texts & Pills */}
         <div className="flex flex-col items-start text-left space-y-8">
@@ -162,11 +162,11 @@ const CommunitySection = () => {
               </div>
 
               {/* 12. Flex Baseline Members Text */}
-              <div className="flex items-baseline justify-center gap-[12px] mb-3">
-                <span className="text-6xl md:text-[72px] font-black text-white tracking-tight leading-none drop-shadow-lg flex items-baseline">
+              <div className="flex items-baseline justify-center gap-2 sm:gap-[12px] mb-3">
+                <span className="text-4xl sm:text-6xl md:text-[72px] font-black text-white tracking-tight leading-none drop-shadow-lg flex items-baseline">
                   <CountUp end={stats.members} duration={1.2} separator="," enableScrollSpy={true} scrollSpyOnce={true} />+
                 </span>
-                <span className="text-[32px] font-bold text-slate-300 leading-none">
+                <span className="text-xl sm:text-[32px] font-bold text-slate-300 leading-none">
                   Members
                 </span>
               </div>

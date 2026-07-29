@@ -6,6 +6,8 @@ import Image from "next/image";
 import { FaDiscord, FaCopy, FaCheck, FaCrown, FaHandshake, FaGlobe, FaCubes } from "react-icons/fa6";
 import { GiCrossedSwords } from "react-icons/gi";
 import GridDistortion from "@/components/ui/GridDistortion";
+import { useMobile } from "@/hooks/useMobile";
+import SectionWrapper from "@/components/SectionWrapper";
 
 // Custom simple icons for bullet points
 const IconNations = () => <FaCrown />;
@@ -18,11 +20,13 @@ const DISCORD_LINK = "https://discord.gg/AQCH5ZRXT2";
 const WEBSITE_LINK = "https://smp.hayanura.in";
 
 const HayaSMPSection = () => {
-  const prefersReducedMotion = useReducedMotion();
-  const noMotion = !!prefersReducedMotion;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const isVisible = useInView(sectionRef, { margin: "200px 0px" });
+  const prefersReducedMotion = useReducedMotion();
+  const noMotion = !!prefersReducedMotion;
 
 
   const [copied, setCopied] = useState(false);
@@ -68,13 +72,15 @@ const HayaSMPSection = () => {
 
       {/* ── Interactive WebGL Background (Paused out of view) ── */}
       <div className="absolute inset-0 z-[1] opacity-30">
-        <GridDistortion
-          imageSrc="/images/hayasmp/screenshot.png"
-          grid={15}
-          mouse={0.1}
-          strength={0.15}
-          relaxation={0.9}
-        />
+        {!isMobile && (
+          <GridDistortion
+            imageSrc="/images/hayasmp/screenshot.png"
+            grid={15}
+            mouse={0.1}
+            strength={0.15}
+            relaxation={0.9}
+          />
+        )}
       </div>
 
       {/* ── Ambient Radial Gradients (Adapted to Fiery Gold / Amber) ── */}

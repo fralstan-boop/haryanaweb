@@ -8,6 +8,7 @@ import SectionWrapper, { staggerItem } from "@/components/SectionWrapper";
 import GlowButton from "@/components/GlowButton";
 import { stripe1Videos, stripe2Videos, Video } from "@/data/videos";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const PrismaticBurstDynamic = dynamic(() => import("@/components/ui/PrismaticBurst"), { ssr: false });
 
@@ -29,25 +30,25 @@ const VideoCard = ({ video }: { video: Video }) => {
       <div className="absolute inset-0 z-0 bg-slate-950 overflow-hidden flex items-center justify-center">
         {video.isShort ? (
           <>
-            {/* Layer 1: Ambient Blurred Background Fill 
-                scale-[3.5] mathematically pushes the 70% black bars of YouTube's vertical thumbnails entirely outside the card, eliminating the flat black background and edge artifacts. */}
-            <img
+            {/* Layer 1: Ambient Blurred Background Fill */}
+            <Image
               src={thumbSrc}
               alt=""
               width={480}
               height={360}
+              sizes="(max-width: 768px) 250px, 320px"
               aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover scale-[3.5] blur-[24px] brightness-[0.45] opacity-90 transition-transform duration-500 group-hover:scale-[3.8]"
               loading="lazy"
             />
-            {/* Layer 2: Crisp Un-cropped Foreground Composition
-                The aspect-[9/16] wrapper with absolute centering perfectly crops out the baked-in black bars of hqdefault/maxresdefault, revealing only the native vertical video pixels. */}
+            {/* Layer 2: Crisp Un-cropped Foreground Composition */}
             <div className="relative z-[1] h-[95%] aspect-[9/16] overflow-hidden rounded-md shadow-[0_0_30px_rgba(0,0,0,0.6)]">
-              <img
+              <Image
                 src={thumbSrc}
                 alt={video.title}
                 width={480}
                 height={360}
+                sizes="(max-width: 768px) 250px, 320px"
                 className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-auto max-w-none scale-[1.12] transition-transform duration-500 group-hover:scale-[1.2]"
                 loading="lazy"
                 onError={() => {
@@ -61,11 +62,12 @@ const VideoCard = ({ video }: { video: Video }) => {
           </>
         ) : (
           /* Standard Landscape Video */
-          <img
+          <Image
             src={thumbSrc}
             alt={video.title}
             width={480}
             height={360}
+            sizes="(max-width: 768px) 250px, 320px"
             className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
             onError={() => {
@@ -114,6 +116,8 @@ const FeaturedWorkSection = ({
   const isVisible = useInView(containerRef, { margin: "200px 0px" });
   const prefersReducedMotion = useReducedMotion();
   const noMotion = !!prefersReducedMotion;
+  
+  const [isTouchPaused, setIsTouchPaused] = useState(false);
 
   // Double arrays for seamless infinite loop (translateX 0 -> -50%)
   const row1Items = videoData?.row1Items || [...stripe1Videos, ...stripe1Videos];
@@ -152,6 +156,9 @@ const FeaturedWorkSection = ({
           {/* Marquee Stripes Wrapper with CSS Mask for perfect edge fading */}
           <div 
             className="flex flex-col gap-6 w-full py-4 max-w-[100vw]"
+            onTouchStart={() => setIsTouchPaused(true)}
+            onTouchEnd={() => setIsTouchPaused(false)}
+            onTouchCancel={() => setIsTouchPaused(false)}
             style={{
               maskImage: 'linear-gradient(to right, transparent, black 3%, black 97%, transparent)',
               WebkitMaskImage: 'linear-gradient(to right, transparent, black 3%, black 97%, transparent)'
@@ -159,7 +166,7 @@ const FeaturedWorkSection = ({
           >
             {/* Stripe 1: Right to Left (Countryballs) */}
             <div className="marquee-container w-full overflow-hidden flex">
-              <div className={`marquee-track-left flex w-max flex-nowrap gap-6 shrink-0 ${noMotion ? "" : "animate-marquee-left"} ${!isVisible ? "[animation-play-state:paused]" : ""} hover:[animation-play-state:paused]`}>
+              <div className={`marquee-track-left flex w-max flex-nowrap gap-6 shrink-0 ${noMotion ? "" : "animate-marquee-left"} ${!isVisible || isTouchPaused ? "[animation-play-state:paused]" : ""} hover:[animation-play-state:paused]`}>
                 {row1Items.map((video, idx) => (
                   <VideoCard key={`r1-${video.id}-${idx}`} video={video} />
                 ))}
@@ -168,7 +175,7 @@ const FeaturedWorkSection = ({
 
             {/* Stripe 2: Left to Right (Military & Geopolitics Animations) */}
             <div className="marquee-container w-full overflow-hidden flex">
-              <div className={`marquee-track-right flex w-max flex-nowrap gap-6 shrink-0 ${noMotion ? "" : "animate-marquee-right"} ${!isVisible ? "[animation-play-state:paused]" : ""} hover:[animation-play-state:paused]`}>
+              <div className={`marquee-track-right flex w-max flex-nowrap gap-6 shrink-0 ${noMotion ? "" : "animate-marquee-right"} ${!isVisible || isTouchPaused ? "[animation-play-state:paused]" : ""} hover:[animation-play-state:paused]`}>
                 {row2Items.map((video, idx) => (
                   <VideoCard key={`r2-${video.id}-${idx}`} video={video} />
                 ))}

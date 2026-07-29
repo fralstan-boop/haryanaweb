@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site.config";
 import GlowButton from "@/components/GlowButton";
 import StatCounter from "@/components/ui/StatCounter";
 import { FaYoutube } from "react-icons/fa6";
+import { useMobile } from "@/hooks/useMobile";
 import dynamic from "next/dynamic";
 
 const Balatro = dynamic(() => import("@/components/ui/Balatro"), { ssr: false });
@@ -14,13 +15,16 @@ export default function HeroSection() {
   const prefersReducedMotion = useReducedMotion();
   const noMotion = !!prefersReducedMotion;
 
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMobile();
+  const [startWebGL, setStartWebGL] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    // Defer heavy WebGL shader compilation until after first paint
+    const timer = setTimeout(() => setStartWebGL(true), 500);
+    
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   const fi = (d: number) => (noMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 });
@@ -48,7 +52,7 @@ export default function HeroSection() {
       />
 
       {/* ── Balatro WebGL background ── */}
-      {!isMobile && !noMotion && (
+      {startWebGL && !isMobile && !noMotion && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -139,11 +143,11 @@ export default function HeroSection() {
           transition={ft(0.6)}
         >
           {/* Subscribers */}
-          <div className="px-8 sm:px-12 text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
+          <div className="px-4 sm:px-8 md:px-12 text-center overflow-hidden">
+            <div className="text-2xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight truncate">
               <StatCounter value={siteConfig.stats.subscribers} />
             </div>
-            <div className="mt-1 text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-medium" style={{ color: "rgba(230,225,215,0.45)" }}>
+            <div className="mt-1 text-[8px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.25em] font-medium truncate" style={{ color: "rgba(230,225,215,0.45)" }}>
               Subscribers
             </div>
           </div>
@@ -157,11 +161,11 @@ export default function HeroSection() {
           />
 
           {/* Total Views */}
-          <div className="px-8 sm:px-12 text-center">
-            <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
+          <div className="px-4 sm:px-8 md:px-12 text-center overflow-hidden">
+            <div className="text-2xl sm:text-4xl md:text-5xl font-bold text-text-primary tracking-tight truncate">
               <StatCounter value={siteConfig.stats.totalViews} />
             </div>
-            <div className="mt-1 text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-medium" style={{ color: "rgba(230,225,215,0.45)" }}>
+            <div className="mt-1 text-[8px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.25em] font-medium truncate" style={{ color: "rgba(230,225,215,0.45)" }}>
               Total Views
             </div>
           </div>
